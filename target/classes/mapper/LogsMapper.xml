@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xy.mapper.LogsMapper">
+  <resultMap id="BaseResultMap" type="com.xy.models.Logs">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="user_uuid" jdbcType="VARCHAR" property="userUuid" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="key" jdbcType="VARCHAR" property="key" />
+    <result column="summary" jdbcType="VARCHAR" property="summary" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="addTime" jdbcType="VARCHAR" property="addtime" />
+  </resultMap>
+</mapper>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xy.mapper.ShopMoneyRecordMapper">
+  <resultMap id="BaseResultMap" type="com.xy.models.ShopMoneyRecord">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="uuid" jdbcType="CHAR" property="uuid" />
+    <result column="shop_uuid" jdbcType="CHAR" property="shopUuid" />
+    <result column="shop_name" jdbcType="VARCHAR" property="shopName" />
+    <result column="money" jdbcType="INTEGER" property="money" />
+    <result column="left_money" jdbcType="INTEGER" property="leftMoney" />
+    <result column="type" jdbcType="CHAR" property="type" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="add_time" jdbcType="VARCHAR" property="addTime" />
+    <result column="operate_time" jdbcType="VARCHAR" property="operateTime" />
+    <result column="pay_type" jdbcType="CHAR" property="payType" />
+    <result column="balance" jdbcType="INTEGER" property="balance" />
+    <result column="buy_type" jdbcType="CHAR" property="buyType" />
+    <result column="union_order_uuid" jdbcType="VARCHAR" property="unionOrderUuid" />
+  </resultMap>
+</mapper>

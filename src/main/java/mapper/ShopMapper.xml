@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xy.mapper.ShopMapper">
+  <resultMap id="BaseResultMap" type="com.xy.models.Shop">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="uuid" jdbcType="CHAR" property="uuid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="shop_phone" jdbcType="VARCHAR" property="shopPhone" />
+    <result column="owner_phone" jdbcType="VARCHAR" property="ownerPhone" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="thumb_img" jdbcType="VARCHAR" property="thumbImg" />
+    <result column="more_img" jdbcType="VARCHAR" property="moreImg" />
+    <result column="longitude" jdbcType="DECIMAL" property="longitude" />
+    <result column="latitude" jdbcType="DECIMAL" property="latitude" />
+    <result column="role" jdbcType="CHAR" property="role" />
+    <result column="shop_cat_uuid" jdbcType="VARCHAR" property="shopCatUuid" />
+    <result column="shop_cat_id" jdbcType="VARCHAR" property="shopCatId" />
+    <result column="areaid" jdbcType="VARCHAR" property="areaid" />
+    <result column="areaname" jdbcType="VARCHAR" property="areaname" />
+    <result column="add_time" jdbcType="VARCHAR" property="addTime" />
+    <result column="total_sale_num" jdbcType="INTEGER" property="totalSaleNum" />
+    <result column="shop_cat_name" jdbcType="VARCHAR" property="shopCatName" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="judge_num" jdbcType="INTEGER" property="judgeNum" />
+    <result column="judge_score" jdbcType="REAL" property="judgeScore" />
+    <result column="if_recommend" jdbcType="INTEGER" property="ifRecommend" />
+    <result column="recommend_img" jdbcType="VARCHAR" property="recommendImg" />
+    <result column="cart_id" jdbcType="VARCHAR" property="cartId" />
+    <result column="visual" jdbcType="BIT" property="visual" />
+    <result column="freeze" jdbcType="BIT" property="freeze" />
+    <result column="open_audit" jdbcType="BIT" property="openAudit" />
+    <result column="scale" jdbcType="VARCHAR" property="scale" />
+    <result column="endTime" jdbcType="VARCHAR" property="endtime" />
+    <result column="shop_detail" jdbcType="LONGVARCHAR" property="shopDetail" />
+  </resultMap>
+</mapper>

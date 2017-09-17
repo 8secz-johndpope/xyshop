@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xy.mapper.MenuMapper">
+  <resultMap id="BaseResultMap" type="com.xy.models.Menu">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="uuid" jdbcType="CHAR" property="uuid" />
+    <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+    <result column="menu_url" jdbcType="VARCHAR" property="menuUrl" />
+    <result column="parent_uuid" jdbcType="CHAR" property="parentUuid" />
+    <result column="class_name" jdbcType="VARCHAR" property="className" />
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="p_id" jdbcType="VARCHAR" property="pId" />
+    <result column="sub_item" jdbcType="INTEGER" property="subItem" />
+  </resultMap>
+</mapper>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+	<properties resource="jdbc.properties"/>
+
+	<context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+
+		<property name="beginningDelimiter" value="`"/>
+		<property name="endingDelimiter" value="`"/>
+
+		<plugin type="${mapper.plugin}">
+			<property name="mappers" value="${mapper.Mapper}"/>
+		</plugin>
+
+		<jdbcConnection driverClass="${jdbc.driver}"
+			connectionURL="${jdbc.url}"
+			userId="${jdbc.username}"
+			password="${jdbc.password}">
+		</jdbcConnection>
+		
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false"></property>
+		</javaTypeResolver>
+		<javaModelGenerator targetPackage="com.xy.models" targetProject="E:\\IdeaProjects\\xyshop/src/main/java/">
+			<property name="enableSubPackages" value="true"></property>
+			<property name="trimStrings" value="true"></property>
+		</javaModelGenerator>
+		
+		<sqlMapGenerator targetPackage="mapper" targetProject="E:\\IdeaProjects\\xyshop/src/main/java/">
+			<property name="enableSubPackages" value="true"></property>
+		</sqlMapGenerator>
+		
+		<javaClientGenerator type="XMLMAPPER" 
+			targetPackage="com.xy.mapper"
+			targetProject="E:\\IdeaProjects\\xyshop/src/main/java/">
+			<property name="enableSubPackages" value="true"></property>
+		</javaClientGenerator>
+		<!-- 配置要生成的文件，根据数据表生成底层代码 -->
+		
+		<!--<table tableName="shop_wallet" domainObjectName="ShopWallet"></table>-->
+		<!--<table tableName="user" domainObjectName="User"></table>-->
+		<!--<table tableName="union_goods" domainObjectName="UnionGoods"></table>-->
+		<!--<table tableName="union_orders" domainObjectName="UnionOrders"></table>-->
+		<!--<table tableName="shop_money_record" domainObjectName="ShopMoneyRecord"></table>-->
+		<!--<table tableName="user_coin_record" domainObjectName="UserCoinRecord"></table>-->
+        <!--<table tableName="shop_update_wallet" domainObjectName="ShopUpdateWallet"></table>-->
+		<!--<table tableName="category" domainObjectName="Category"></table>-->
+		<!--<table tableName="brand" domainObjectName="Brand"></table>-->
+		<!--<table tableName="union_goods" domainObjectName="UnionGoods"></table>-->
+		<!--<table tableName="union_orders" domainObjectName="UnionOrders"></table>-->
+		<!--<table tableName="coupon" domainObjectName="Coupon"></table>-->
+		<!--<table tableName="user_coupon" domainObjectName="UserCoupon"></table>-->
+		<table tableName="ad" domainObjectName="Ad"></table>
+	</context>
+</generatorConfiguration>

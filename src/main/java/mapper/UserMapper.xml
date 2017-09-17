@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xy.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.xy.models.User">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="uuid" jdbcType="CHAR" property="uuid" />
+    <result column="head_img" jdbcType="VARCHAR" property="headImg" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="birthday" jdbcType="VARCHAR" property="birthday" />
+    <result column="gender" jdbcType="CHAR" property="gender" />
+    <result column="phone_num" jdbcType="VARCHAR" property="phoneNum" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="coin" jdbcType="INTEGER" property="coin" />
+    <result column="commission" jdbcType="INTEGER" property="commission" />
+    <result column="role" jdbcType="CHAR" property="role" />
+    <result column="alipay_account" jdbcType="VARCHAR" property="alipayAccount" />
+    <result column="alipay_account_name" jdbcType="VARCHAR" property="alipayAccountName" />
+    <result column="ref_user_uuid" jdbcType="CHAR" property="refUserUuid" />
+    <result column="ref_user_name" jdbcType="VARCHAR" property="refUserName" />
+    <result column="qrcode_img" jdbcType="VARCHAR" property="qrcodeImg" />
+    <result column="add_time" jdbcType="VARCHAR" property="addTime" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="card_id" jdbcType="VARCHAR" property="cardId" />
+    <result column="bank_no" jdbcType="VARCHAR" property="bankNo" />
+    <result column="bank_info" jdbcType="VARCHAR" property="bankInfo" />
+    <result column="family_address" jdbcType="VARCHAR" property="familyAddress" />
+    <result column="address_detail" jdbcType="VARCHAR" property="addressDetail" />
+    <result column="openid" jdbcType="VARCHAR" property="openid" />
+    <result column="sceneid" jdbcType="INTEGER" property="sceneid" />
+  </resultMap>
+</mapper>

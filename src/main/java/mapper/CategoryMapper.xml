@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xy.mapper.CategoryMapper">
+  <resultMap id="BaseResultMap" type="com.xy.models.Category">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="uuid" jdbcType="CHAR" property="uuid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="cat_id" jdbcType="VARCHAR" property="catId" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="icon_img" jdbcType="VARCHAR" property="iconImg" />
+    <result column="add_time" jdbcType="VARCHAR" property="addTime" />
+    <result column="cat_pid" jdbcType="VARCHAR" property="catPid" />
+  </resultMap>
+</mapper>

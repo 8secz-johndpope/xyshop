@@ -1,0 +1,66 @@
+.leftHead{
+	float: left;
+    position: relative;
+}
+.rightHead{
+	float: right;
+    position: relative;
+}
+.rightSpan{
+	float: right;
+    position: relative;
+}
+.panel-heading {
+	line-height: 30px;
+}
+.loding{
+	background-color: white;
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    width: 300px;
+    padding: 25px;
+    text-align: center;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    margin-left: -136px;
+    margin-top: -200px;
+    overflow: hidden;
+    display: none;
+    z-index: 99999;
+    border-radius:30px;
+}
+.loding-backdrop{
+	z-index: 9998!important;
+	position: fixed;
+    top: 0;
+    right: 0; 
+    bottom: 0;
+    left: 0;
+    background-color: #000;
+    filter: alpha(opacity=50);
+    opacity: .5;
+}
+.expmpleBox{
+	display: inline-block;
+	padding: 20px;
+}
+.js-img-more{
+	display: inline-block;
+	padding: 20px;
+}
+.js-sku-box{
+	border: 2px solid rgba(146, 176, 218, 0.19);
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 1px 1px 10px rgba(136, 136, 136, 0.41);
+}
+.js-inline20{
+	width: 20%;display: inline-block;
+}
+.js-inline15{
+	width: 15%;display: inline-block;margin-top: 3px;
+}
+.label-width{
+	width: 80px;
+}

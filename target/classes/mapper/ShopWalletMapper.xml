@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xy.mapper.ShopWalletMapper">
+  <resultMap id="BaseResultMap" type="com.xy.models.ShopWallet">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="uuid" jdbcType="CHAR" property="uuid" />
+    <result column="shop_uuid" jdbcType="CHAR" property="shopUuid" />
+    <result column="alipay_account" jdbcType="VARCHAR" property="alipayAccount" />
+    <result column="alipay_account_name" jdbcType="VARCHAR" property="alipayAccountName" />
+    <result column="money" jdbcType="INTEGER" property="money" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="cart_id" jdbcType="VARCHAR" property="cartId" />
+    <result column="cart_name" jdbcType="VARCHAR" property="cartName" />
+    <result column="cart_uname" jdbcType="VARCHAR" property="cartUname" />
+  </resultMap>
+</mapper>

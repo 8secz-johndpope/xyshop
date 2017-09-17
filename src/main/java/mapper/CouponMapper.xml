@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xy.mapper.CouponMapper">
+  <resultMap id="BaseResultMap" type="com.xy.models.Coupon">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="number" jdbcType="VARCHAR" property="number" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="start_time" jdbcType="VARCHAR" property="startTime" />
+    <result column="end_time" jdbcType="VARCHAR" property="endTime" />
+    <result column="bear_party" jdbcType="CHAR" property="bearParty" />
+    <result column="to_user" jdbcType="CHAR" property="toUser" />
+    <result column="to_user_value" jdbcType="INTEGER" property="toUserValue" />
+    <result column="rule" jdbcType="CHAR" property="rule" />
+    <result column="rule_value" jdbcType="VARCHAR" property="ruleValue" />
+    <result column="to_goods" jdbcType="CHAR" property="toGoods" />
+    <result column="to_goods_value" jdbcType="VARCHAR" property="toGoodsValue" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="total" jdbcType="INTEGER" property="total" />
+    <result column="use_method" jdbcType="CHAR" property="useMethod" />
+    <result column="used" jdbcType="INTEGER" property="used" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="add_time" jdbcType="VARCHAR" property="addTime" />
+  </resultMap>
+</mapper>

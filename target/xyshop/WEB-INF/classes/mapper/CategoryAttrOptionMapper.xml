@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xy.mapper.CategoryAttrOptionMapper">
+  <resultMap id="BaseResultMap" type="com.xy.models.CategoryAttrOption">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="uuid" jdbcType="CHAR" property="uuid" />
+    <result column="attr_uuid" jdbcType="CHAR" property="attrUuid" />
+    <result column="option_name" jdbcType="VARCHAR" property="optionName" />
+    <result column="option_id" jdbcType="INTEGER" property="optionId" />
+    <result column="add_time" jdbcType="VARCHAR" property="addTime" />
+  </resultMap>
+</mapper>
