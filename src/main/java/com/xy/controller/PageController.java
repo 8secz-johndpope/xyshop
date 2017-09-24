@@ -68,8 +68,6 @@ public class PageController {
         return "role/role_list";
     }
 
-
-
     /**
      * 账号管理
      *
@@ -80,7 +78,10 @@ public class PageController {
         return "role/admin_list";
     }
 
-
+    @RequestMapping(value = "/user.html")
+    public String userPage() {
+        return "user/user_list";
+    }
 
     /**
      * 广告管理
