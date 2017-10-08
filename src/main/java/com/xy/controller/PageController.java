@@ -78,6 +78,11 @@ public class PageController {
         return "role/admin_list";
     }
 
+
+    /**
+     * 用户管理
+     * @return
+     */
     @RequestMapping(value = "/user.html")
     public String userPage() {
         return "user/user_list";
