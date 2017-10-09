@@ -23,12 +23,11 @@
         <div class="row">
             <div class="col-sm-12">
                 <div id="toolbar" class="btn-group">
-                    <label style="padding-left: 10px;">用户身份:</label>
+                    <label style="padding-left: 10px;">用户状态:</label>
                     <select class="form-control js-change-table-params" id="js-choise-role" style="width: 150px;display: inline-block;">
                         <option value="" selected="selected">全部</option>
-                        <option value="bronze">铜牌用户</option>
-                        <option value="silver">银牌用户</option>
-                        <option value="gold">金牌用户</option>
+                        <option value="online">正常</option>
+                        <option value="offline">冻结</option>
                     </select>
                     <label>注册时间</label>
                     <input class="form-control layer-date js-change-table-params" style="width: 150px;vertical-align: baseline;" id="js-date-begin" placeholder="开始时间">
@@ -38,34 +37,7 @@
             </div>
         </div>
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="gradeModal" tabindex="-1" role="dialog" aria-labelledby="gradeLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">修改等级</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <input type="hidden" id="useruuid">
-                        <label style="padding-left: 10px;">用户身份:</label>
-                        <select class="form-control" id="js-choise-grade" style="width: 150px;display: inline-block;">
-                            <option value="bronze">铜牌用户</option>
-                            <option value="silver">银牌用户</option>
-                            <option value="gold">金牌用户</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="modal-footer" style="margin-top: 80px;">
-                    <a type="button" class="btn btn-outline btn-danger" data-dismiss="modal">取消</a>
-                    <a type="button" class="btn btn-outline btn-primary gradeAction">确定</a>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
+
     <!-- Modal -->
     <div class="modal fade" id="userAuth" tabindex="-1" role="dialog" aria-labelledby="userAuthLabel" aria-hidden="true">
         <div class="modal-dialog">
