@@ -88,9 +88,9 @@ public class Config implements EnvironmentAware {
     public void setEnvironment(Environment environment) {
         this.env = environment;
 
-        // 图片保存根目标
+        // 资源保存根目标
         String basePath = env.getProperty("file.basePath");
-        // 图片资源访问根目录
+        // 资源访问根目录
         String baseUrl = env.getProperty("req.baseUrl");
 
         Config.FILETEMP = basePath + env.getProperty("file.temp");
