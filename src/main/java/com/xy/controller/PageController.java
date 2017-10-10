@@ -83,7 +83,7 @@ public class PageController {
      * 用户管理
      * @return
      */
-    @RequestMapping(value = "/user.html")
+    @RequestMapping(value = "/users.html")
     public String userPage() {
         return "user/user_list";
     }

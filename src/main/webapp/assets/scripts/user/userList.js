@@ -12,10 +12,10 @@ define(function(require) {
         var columns = [
         {
             field: 'sceneid',
-            title: '会员ID',
+            title: '序号',
             align: 'center',
             formatter: function(value, row, index) {
-                return value + "00";
+                return index+1;
             }
         },
         {
@@ -62,17 +62,15 @@ define(function(require) {
             title: '佣金',
             align: 'center',
         }, {
-            field: 'role',
-            title: '当前角色',
+            field: 'status',
+            title: '状态',
             align: 'center',
             formatter: function(value, row, index) {
                 switch (value) {
-                    case 'bronze':
-                        return "<span class='badge badge-warning'>铜牌会员</span>";
-                    case 'silver':
-                        return "<span class='badge badge-primary'>银牌会员</span>";
-                    case 'gold':
-                        return "<span class='badge badge-danger'>金牌会员</span>";
+                    case 'online':
+                        return "<span class='badge badge-warning'>正常</span>";
+                    case 'offline':
+                        return "<span class='badge badge-primary'>冻结</span>";
                 }
                 return "-";
             }
@@ -82,21 +80,22 @@ define(function(require) {
 //            title: '绑定的提现支付宝账户',
 //            align: 'center',
 //        }
-        , {
-            field: 'refUserName',
-            title: '推荐人会员名',
-            align: 'center',
-        }, {
-            field: 'refsceneid',
-            title: '推荐人ID',
-            align: 'center',
-            formatter: function(value, row, index) {
-            	if ($common._noEmpty(value)) {
-                	return value + "00";
-                }
-                return "-";
-            }
-        },{
+//         , {
+//             field: 'refUserName',
+//             title: '推荐人会员名',
+//             align: 'center',
+//         }, {
+//             field: 'refsceneid',
+//             title: '推荐人ID',
+//             align: 'center',
+//             formatter: function(value, row, index) {
+//             	if ($common._noEmpty(value)) {
+//                 	return value + "00";
+//                 }
+//                 return "-";
+//             }
+//         }
+            ,{
             field: 'cardId',
             title: '身份证号',
             align: 'center',
@@ -122,27 +121,18 @@ define(function(require) {
             align: 'center',
             visible: false,
         }, {
-            field: 'authRes',
-            title: '是否已实名',
-            align: 'center',
-            formatter: function(value, row, index) {
-                switch (value) {
-                    case '1':
-                        return "<span class='text-success'>已认证</span>";
-                    case '0':
-                        return "<span class='text-muted'>未认证</span>";
-                }
-                return "-";
-            }
-        }, {
             field: 'operate',
             title: '操作',
             align: 'center',
             formatter: function(value, row, index) {
             	var opt = [];
                 opt.push('<a href="userInfo.html?u=' + row.uuid + '" class="btn btn-outline btn-success js-info J_menuItem">用户详情</a>');
-                opt.push('<a class="btn btn-outline btn-warning js-upd-grade">修改等级</a>');
                 opt.push('<a class="btn btn-outline btn-danger userauth">实名信息</a>');
+                if(row.status == "online") {
+                    opt.push('<a class="btn btn-outline btn-danger offlineAction">冻结</a>');
+                } else {
+                    opt.push('<a class="btn btn-outline btn-danger onlineAction">解冻</a>');
+                }
                 return opt.join(" ");
             },
             events: {
@@ -179,15 +169,12 @@ define(function(require) {
                     }, 'json');
                 },
                 'click .js-upd-grade': function(e, value, row, index) {
-                    $("#useruuid").val(row.uuid);
-                    $("#gradeModal").modal({
-                        backdrop: 'static'
-                    });
+                    $alert._warning("确定冻结该用户吗？", "", upgradeUser({uuid: row.uuid, status: row.status}));
                 }
             }
         }];
         usert._setSort('addTime', 'desc');
-        var $usert = usert._init("table", "/shop-users/users/list", columns, function(d) {
+        var $usert = usert._init("table", "/xyshop-supplier/user/list", columns, function(d) {
             d.role = $('#js-choise-role').val();
             d.startTime = $('#js-date-begin').val();
             d.endTime = $('#js-date-end').val();
@@ -198,18 +185,18 @@ define(function(require) {
             $usert._refresh();
         });
 
-        $(".gradeAction").click(function(e) {
-            $.post('/shop-users/users/updgrade', {uuid:  $("#useruuid").val(), grade: $("#js-choise-grade").val()}, function(data, textStatus, xhr) {
+
+        var upgradeUser = function (user) {
+            $.post('/xyshop-supplier/user/', user, function(data, textStatus, xhr) {
                 /*optional stuff to do after success */
                 if(data == "success") {
-                    $alert._alert("修改成功");
-                    $("#gradeModal").modal('hide');
+                    $alert._alert("操作成功");
                     $usert._refresh();
                 } else {
-                    $alert._alert("修改失败");
+                    $alert._alert("操作失败");
                 }
             });
-        });
+        }
 
         /*时间选择器*/
         /*加载layerdate时间选择器*/
