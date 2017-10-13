@@ -88,6 +88,13 @@ public class PageController {
         return "user/user_list";
     }
 
+    @RequestMapping(value = "/user-details.html")
+    public ModelAndView userDetailPage(@RequestParam String uuid, ModelAndView view) {
+        view.addObject("uuid", uuid);
+        view.setViewName("user/userInfo");
+        return view;
+    }
+
     /**
      * 广告管理
      * @return

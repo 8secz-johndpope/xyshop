@@ -124,41 +124,31 @@ define(function(require) {
                 align: 'center',
                 formatter: function(value, row, index) {
                     var opt = [];
-                    opt.push('<a href="userInfo.html?u=' + row.uuid + '" class="btn btn-outline btn-success js-info J_menuItem">用户详情</a>');
-                    opt.push('<a class="btn btn-outline btn-danger userauth">实名信息</a>');
+                    opt.push('<a href="user-details.html?uuid=' + row.uuid + '" class="btn btn-outline btn-success js-info J_menuItem">用户详情</a>');
                     if (row.status == "online") {
-                        opt.push('<a class="btn btn-outline btn-danger offlineAction">冻结</a>');
+                        opt.push('<a class="btn btn-outline btn-danger js-offlineAction">冻结</a>');
                     } else {
-                        opt.push('<a class="btn btn-outline btn-danger onlineAction">解冻</a>');
+                        opt.push('<a class="btn btn-outline btn-danger js-onlineAction">解冻</a>');
                     }
                     return opt.join(" ");
                 },
                 events: {
-                    'click .userauth': function(e, value, row, index) {
-                        $.post('/shop-users/users/ajax/userauthinfo', {
-                            uuid: row.uuid
-                        }, function(data, textStatus, xhr) {
-                            /*optional stuff to do after success */
-                            if (data && data.idcard) {
-                                $(".realName").text(data.realname);
-                                $(".idcord").text(data.idcard);
-                                $('.idcordup').attr('src', data.idcardup);
-                                $('.idcordown').attr('src', data.idcardown);
-                                $("#updateuuid").val(data.uuid);
-
-                                $("#userAuth").modal({
-                                    backdrop: 'static'
-                                });
-                            } else {
-                                $alert._alert("该会员尚未填写认证信息");
-                            }
-                        }, 'json');
+                    'click .js-offlineAction': function(e, value, row, index) {
+                        $alert._warning("确定冻结该用户吗？", "", function() {
+                            upgradeUser({
+                                uuid: row.uuid,
+                                status: 'offline'
+                            })
+                        });
                     },
-                    'click .js-upd-grade': function(e, value, row, index) {
-                        $alert._warning("确定冻结该用户吗？", "", upgradeUser({
-                            uuid: row.uuid,
-                            status: row.status
-                        }));
+                    'click .js-onlineAction': function(e, value, row, index) {
+                        $alert._warning("确定解冻该用户吗？", "", function() {
+                            upgradeUser({
+                                uuid: row.uuid,
+                                status: 'online'
+                            })
+                        });
+
                     }
                 }
             }
@@ -177,7 +167,7 @@ define(function(require) {
 
 
         var upgradeUser = function(user) {
-            $.post('/xyshop-supplier/user/', user, function(data, textStatus, xhr) {
+            $.post('/xyshop-supplier/user/update', user, function(data, textStatus, xhr) {
                 /*optional stuff to do after success */
                 if (data == "success") {
                     $alert._alert("操作成功");
