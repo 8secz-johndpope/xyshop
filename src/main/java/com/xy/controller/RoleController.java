@@ -7,9 +7,9 @@ import com.xy.models.Menu;
 import com.xy.models.Role;
 import com.xy.models.RoleMenu;
 import com.xy.pojo.ParamsPojo;
-import com.xy.services.IMenuService;
-import com.xy.services.IRoleMenuService;
-import com.xy.services.IRoleSerivce;
+import com.xy.services.MenuService;
+import com.xy.services.RoleMenuService;
+import com.xy.services.RoleSerivce;
 import com.xy.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -31,11 +31,11 @@ import java.util.Map;
 public class RoleController {
 
     @Autowired
-    private IRoleSerivce roleSerivce;
+    private RoleSerivce roleSerivce;
     @Autowired
-    private IMenuService menuService;
+    private MenuService menuService;
     @Autowired
-    private IRoleMenuService roleMenuService;
+    private RoleMenuService roleMenuService;
 
     /**
      * 加载角色，创建管理员账号使用

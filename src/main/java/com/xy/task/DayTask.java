@@ -1,9 +1,8 @@
 package com.xy.task;
 
-import com.xy.services.ICouponService;
+import com.xy.services.CouponService;
 import com.xy.utils.Config;
 import com.xy.utils.FileUtils;
-import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class DayTask {
 
 
-    private ICouponService couponService;
+    private CouponService couponService;
 
     /**
      * 上线 优惠卷

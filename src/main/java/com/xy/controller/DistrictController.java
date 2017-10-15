@@ -1,7 +1,7 @@
 package com.xy.controller;
 
 import com.xy.models.District;
-import com.xy.services.IDistrictService;
+import com.xy.services.DistrictService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +20,7 @@ import java.util.List;
 public class DistrictController {
 
     @Autowired
-    private IDistrictService districtService;
+    private DistrictService districtService;
 
     @RequestMapping(value = "list")
     public @ResponseBody

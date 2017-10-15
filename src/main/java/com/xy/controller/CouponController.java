@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
 import com.xy.models.Coupon;
 import com.xy.pojo.ParamsPojo;
-import com.xy.services.ICouponService;
+import com.xy.services.CouponService;
 import com.xy.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -18,7 +18,7 @@ import tk.mybatis.mapper.entity.Example;
 public class CouponController {
 
     @Autowired
-    private ICouponService couponService;
+    private CouponService couponService;
 
 
     @ResponseBody
@@ -48,6 +48,7 @@ public class CouponController {
     }
 
 
+
     @ResponseBody
     @RequestMapping("save")
     public int save(@ModelAttribute Coupon entity) {
@@ -57,7 +58,7 @@ public class CouponController {
     @ResponseBody
     @RequestMapping("update")
     public int update(@ModelAttribute Coupon entity) {
-        return couponService.updateByPrimaryKeySelective(entity);
+            return couponService.updateByPrimaryKeySelective(entity);
     }
 
 

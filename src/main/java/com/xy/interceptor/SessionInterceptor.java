@@ -1,7 +1,7 @@
 package com.xy.interceptor;
 
 import com.xy.models.Admin;
-import com.xy.services.IAdminService;
+import com.xy.services.AdminService;
 import com.xy.utils.Config;
 import com.xy.utils.CookieUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 public class SessionInterceptor extends HandlerInterceptorAdapter {
 
     @Autowired
-    private IAdminService adminService;
+    private AdminService adminService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

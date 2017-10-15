@@ -20,6 +20,7 @@
     <result column="to_goods_value" jdbcType="VARCHAR" property="toGoodsValue" />
     <result column="status" jdbcType="CHAR" property="status" />
     <result column="total" jdbcType="INTEGER" property="total" />
+    <result column="user_max_num" jdbcType="INTEGER" property="userMaxNum" />
     <result column="use_method" jdbcType="CHAR" property="useMethod" />
     <result column="used" jdbcType="INTEGER" property="used" />
     <result column="author" jdbcType="VARCHAR" property="author" />

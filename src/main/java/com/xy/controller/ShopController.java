@@ -1,6 +1,6 @@
 package com.xy.controller;
 
-import com.xy.services.IShopService;
+import com.xy.services.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ShopController {
 
     @Autowired
-    private IShopService shopService;
+    private ShopService shopService;
 
 
 }

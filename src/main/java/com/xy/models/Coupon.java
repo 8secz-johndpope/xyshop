@@ -74,6 +74,7 @@ public class Coupon {
     @Column(name = "to_goods_value")
     private String toGoodsValue;
 
+    @Transient
     private String toGoodsValueText;
 
     /**
@@ -85,6 +86,12 @@ public class Coupon {
      * 优惠卷数量（0代表无限制）
      */
     private Integer total;
+
+    /**
+     * 单个用户最多拥有限制
+     */
+    @Column(name = "user_max_num")
+    public Integer userMaxNum;
 
     /**
      * explicit(显式使用,方法给会员显式使用)；implicit(隐式使用，满足条件自动使用)
@@ -452,5 +459,13 @@ public class Coupon {
 
     public void setToGoodsValueText(String toGoodsValueText) {
         this.toGoodsValueText = toGoodsValueText;
+    }
+
+    public Integer getUserMaxNum() {
+        return userMaxNum;
+    }
+
+    public void setUserMaxNum(Integer userMaxNum) {
+        this.userMaxNum = userMaxNum;
     }
 }

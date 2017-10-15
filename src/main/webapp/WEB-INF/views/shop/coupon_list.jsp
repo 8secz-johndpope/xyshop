@@ -55,11 +55,6 @@
 </head>
 
 <body class="gray-bg">
-<div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-sm-4">
-        <h2>优惠卷管理界面</h2>
-    </div>
-</div>
 <div class="wrapper wrapper-content">
     <div class="row">
         <div class="col-sm-12">
@@ -96,7 +91,8 @@
                     </div>
                     <div class="form-group">
                         <label>描述</label>
-                        <textarea class="form-control" id="desc" style="resize: none;" placeholder="输入优惠卷描述，可以不填"></textarea>
+                        <textarea class="form-control" id="desc" style="resize: none;"
+                                  placeholder="输入优惠卷描述，可以不填"></textarea>
                     </div>
                     <div class="form-group">
                         <label>承担方</label>
@@ -109,17 +105,20 @@
                         <label>目标群体</label>
                         <div style="display: block;">
                             <select class="form-control" name="to_user" id="to_user">
+                                <option value="all">所有用户</option>
                                 <option value="newuser">新用户</option>
                                 <option value="olduser">老用户</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>消费金额</label><small>(消费 >= 一定条件, 参数为0 代表无任何条件限制)</small>
-                        <input type="number" step="0.01" class="form-control required" id="to_user_value" value="" placeholder="输入消费金额">
+                        <label>消费金额</label>
+                        <small>(消费 >= 一定条件, 参数为0 代表无任何条件限制)</small>
+                        <input type="number" step="0.01" class="form-control required" id="to_user_value" value=""
+                               placeholder="输入消费金额">
                     </div>
 
-                    <div class="form-group" >
+                    <div class="form-group">
                         <label>优惠卷规则</label>
                         <div style="display: block;">
                             <select class="form-control" name="rule" id="rule">
@@ -130,7 +129,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>优惠卷规则值</label><small id="rule-desc">(输入优惠卷编号)</small>
+                        <label>优惠卷规则值</label>
+                        <small id="rule-desc">(输入优惠卷编号)</small>
                         <input class="form-control required" id="rule_value" value="" placeholder="优惠卷规则值">
                     </div>
 
@@ -147,7 +147,8 @@
                     <!-- 选择分类：开始 -->
                     <div class="form-group hide" id="to-good-search-panel">
                         <label style="width: 100px;" id="js-togood-sel-text"></label>
-                        <input class="form-control js-init" style="width: 55%;display: inline-block;" id="js-togood-search"
+                        <input class="form-control js-init" style="width: 55%;display: inline-block;"
+                               id="js-togood-search"
                                placeholder="">
                         <input class="hide js-init" id="js-togood-value">
                         <span style="width: 20%;float: right;" class="btn  btn-info" id="js-cat-select-btn">搜索</span>
@@ -161,9 +162,15 @@
 
                     <div class="form-group">
                         <label>优惠卷数量</label>
-                        <input type="number" min="1" step="1" class="form-control required" id="js-count" placeholder="优惠卷数量">
+                        <small>(填写0代表无限制)</small>
+                        <input type="number" min="0" class="form-control required" id="js-count" value="0"
+                               placeholder="优惠卷数量">
                     </div>
-
+                    <div class="form-group">
+                        <label>领取数量限制</label>
+                        <input type="number" min="1" class="form-control required" id="js-usermax" value="1"
+                               placeholder="单个用户最多领取数量限制，最少一个">
+                    </div>
                     <div class="form-group">
                         <label>有效期起</label>
                         <input class="form-control js-init" id="js-start-time" placeholder="有效期起">
@@ -175,11 +182,16 @@
                     <div class="form-group">
                         <label>使用方式</label>
                         <label class="radio-inline">
-                        <input class="radio" type="radio" name="use-method" checked="checked" id="explicit" value="explicit" />
-                        <label for="explicit">显式使用 <small>(满足一定条件自动赠送优惠卷，用户主动选择使用)</small></label>
-                        <br>
-                        <input class="radio" type="radio" name="use-method" id="implicit" value="implicit" />
-                        <label for="implicit">隐式使用 <small>(系统自动使用，可用于发放优惠卷等)</small></label>
+                            <input class="radio" type="radio" name="use-method" checked="checked" id="explicit"
+                                   value="explicit"/>
+                            <label for="explicit">显式使用
+                                <small>(满足一定条件自动赠送优惠卷，用户主动选择使用)</small>
+                            </label>
+                            <br>
+                            <input class="radio" type="radio" name="use-method" id="implicit" value="implicit"/>
+                            <label for="implicit">隐式使用
+                                <small>(系统自动使用，可用于发放优惠卷等)</small>
+                            </label>
                     </div>
                 </div>
                 <div class="modal-footer">

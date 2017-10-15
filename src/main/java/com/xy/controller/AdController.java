@@ -5,7 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.google.gson.Gson;
 import com.xy.models.Ad;
 import com.xy.pojo.ParamsPojo;
-import com.xy.services.IAdService;
+import com.xy.services.AdService;
 import com.xy.services.impl.SqlService;
 import com.xy.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import tk.mybatis.mapper.entity.Example;
 public class AdController {
 
     @Autowired
-    private IAdService adService;
+    private AdService adService;
 
     @Autowired
     private SqlService sqlService;

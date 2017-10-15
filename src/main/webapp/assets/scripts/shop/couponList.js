@@ -40,6 +40,8 @@ define(function (require) {
             align: 'center',
             formatter: function (value, row, index) {
                 switch (value) {
+                    case "all":
+                        return "所有用户";
                     case 'newuser':
                         return '新用户';
                     case 'olduser':
@@ -94,6 +96,10 @@ define(function (require) {
             title: '优惠卷数量',
             align: 'center',
         }, {
+            field: 'userMaxNum',
+            title: '领取数量限制',
+            align: 'center',
+        }, {
             field: 'used',
             title: '已发放(使用)',
             align: 'center',
@@ -113,7 +119,6 @@ define(function (require) {
             field: 'useMethod',
             title: '使用方式',
             align: 'center',
-            visible: false,
             formatter: function (value, row, index) {
                 switch (value) {
                     case 'explicit':
@@ -144,6 +149,11 @@ define(function (require) {
                         return '<span class="text-warning">待上线</span>';
                 }
             }
+        },{
+            field: 'addTime',
+            title: '创建时间',
+            align: 'center',
+            visible: false,
         }, {
             field: 'operate',
             title: '操作',
@@ -189,6 +199,7 @@ define(function (require) {
                             break;
                     }
                     $("#js-count").val(row.total);
+                    $("#js-usermax").val(row.userMaxNum);
                     $("#js-start-time").val(row.startTime);
                     $("#js-end-time").val(row.endTime='forever' ? '' : row.endTime);
                     $("input[value='" + row.useMethod + "']").iCheck('check');
@@ -256,6 +267,7 @@ define(function (require) {
             $("#rule_value").val("");
             $("#to_goods").val("");
             $("#js-count").val("");
+            $("#js-usermax").val("");
             $("#js-start-time").val("");
             $("#js-end-time").val("");
             $("input[value='explicit']").iCheck('check');
@@ -444,6 +456,7 @@ define(function (require) {
                     toGoods: $("#to_goods").val(),
                     toGoodsValue: _toGoodValue,
                     total: $("#js-count").val(),
+                    userMaxNum:$("#js-usermax").val(),
                     startTime: $("#js-start-time").val(),
                     endTime: $("#js-end-time").val(),
                     useMethod: $("input[name='use-method'][checked='checked']").val()
@@ -516,6 +529,7 @@ define(function (require) {
                     toGoods: $("#to_goods").val(),
                     toGoodsValue: _toGoodValue,
                     total: $("#js-count").val(),
+                    userMaxNum:$("#js-usermax").val(),
                     startTime: $("#js-start-time").val(),
                     endTime: $("#js-end-time").val(),
                     useMethod: $("input[name='use-method'][checked='checked']").val()

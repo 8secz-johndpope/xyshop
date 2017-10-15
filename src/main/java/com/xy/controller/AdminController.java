@@ -5,7 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.xy.models.Admin;
 import com.xy.pojo.ParamsPojo;
 import com.xy.redis.RedisUtil;
-import com.xy.services.IAdminService;
+import com.xy.services.AdminService;
 import com.xy.utils.CookieUtils;
 import com.xy.utils.Md5Util;
 import com.xy.utils.StringUtils;
@@ -32,7 +32,7 @@ import java.util.Map;
 public class AdminController {
 
     @Autowired
-    private IAdminService adminService;
+    private AdminService adminService;
     @Autowired
     private RedisUtil redisUtil;
 

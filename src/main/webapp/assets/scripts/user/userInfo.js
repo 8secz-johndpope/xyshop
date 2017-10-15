@@ -81,7 +81,7 @@ define(function(require) {
                 align: 'center',
             }
         ];
-        var $usert = usert._init("table", "/shop-users/users/list", columns, function(d) {
+        var $usert = usert._init("table", "/xyshop-supplier/user/details", columns, function(d) {
             d.uuid = $('#js-user-uuid').val();
         });
         var next_usert = new table();
