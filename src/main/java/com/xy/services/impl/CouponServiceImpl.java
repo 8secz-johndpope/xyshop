@@ -87,6 +87,7 @@ public class CouponServiceImpl extends BaseServiceImpl<Coupon> implements Coupon
     }
 
 
+    @Override
     public List<Coupon> handleResult(List<Coupon> coupons) {
         coupons.forEach(coupon -> {
             String value = coupon.getToGoods();
