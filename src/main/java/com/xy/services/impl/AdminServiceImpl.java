@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
  * Created by rjora on 2017/7/2 0002.
  */
 @Service
-public class AdminServiceImplImpl extends BaseServiceImpl<Admin> implements AdminService {
+public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminService {
 
     @Override
     public int rePass(Admin admin, String oldPass, String newPass) {
