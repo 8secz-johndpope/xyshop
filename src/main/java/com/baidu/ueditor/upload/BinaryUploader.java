@@ -5,7 +5,7 @@ import com.baidu.ueditor.define.AppInfo;
 import com.baidu.ueditor.define.BaseState;
 import com.baidu.ueditor.define.FileType;
 import com.baidu.ueditor.define.State;
-import com.xy.utils.Config;
+import com.xy.config.ResourcesConfig;
 import com.xy.utils.StringUtils;
 import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
@@ -81,7 +81,7 @@ public class BinaryUploader {
 			if (storageState.isSuccess()) {
 //				storageState.putInfo("url",  PathFormat.format(savePath));
 //				storageState.putInfo("original", originFileName + suffix);\
-				storageState.putInfo("url", Config.REQTEMP + newFileName + suffix);
+				storageState.putInfo("url", ResourcesConfig.REQTEMP + newFileName + suffix);
 				storageState.putInfo("type", suffix);
 				storageState.putInfo("original", newFileName + suffix);
 			}

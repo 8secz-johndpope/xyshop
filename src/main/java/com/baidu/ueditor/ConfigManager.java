@@ -3,7 +3,7 @@ package com.baidu.ueditor;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baidu.ueditor.define.ActionMap;
-import com.xy.utils.Config;
+import com.xy.config.ResourcesConfig;
 
 import java.io.*;
 import java.util.HashMap;
@@ -139,7 +139,7 @@ public final class ConfigManager {
 				
 		}
 		// 上传文件保存目录
-		savePath = Config.FILETEMP;
+		savePath = ResourcesConfig.FILETEMP;
 		conf.put( "savePath", savePath );
 		conf.put( "rootPath", this.rootPath );
 		

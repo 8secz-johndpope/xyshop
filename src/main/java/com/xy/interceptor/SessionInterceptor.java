@@ -2,7 +2,7 @@ package com.xy.interceptor;
 
 import com.xy.models.Admin;
 import com.xy.services.AdminService;
-import com.xy.utils.Config;
+import com.xy.config.CookieConfig;
 import com.xy.utils.CookieUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +25,14 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        Cookie cookie = CookieUtils.getCookieByName(request, Config.XY_TICKET);
+        Cookie cookie = CookieUtils.getCookieByName(request, CookieConfig.XY_TICKET);
         if(cookie == null) {
             this.goToLogin(request, response, "sessionInvalid");
             return false;
         }
         try {
             if(request.getSession().getAttribute("_admin") == null) {
-                String[] values = StringUtils.split(cookie.getValue(), Config.XY_TICKET_SEPERATOR);
+                String[] values = StringUtils.split(cookie.getValue(), CookieConfig.XY_TICKET_SEPERATOR);
                 String ticket = values[0];
                 Admin admin = new Admin();
                 admin.setUuid(ticket);

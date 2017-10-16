@@ -4,7 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.google.gson.Gson;
 import com.xy.models.Ad;
 import com.xy.services.AdService;
-import com.xy.utils.Config;
+import com.xy.config.ResourcesConfig;
 import com.xy.utils.DateUtils;
 import com.xy.utils.FileUtils;
 import com.xy.utils.StringUtils;
@@ -62,16 +62,16 @@ public class AdServiceImpl extends BaseServiceImpl<Ad> implements AdService {
 
 
             if (StringUtils.isNotNull(entity.getImgUrl())) {
-                FileUtils.moveFile(Config.FILETEMP + entity.getImgUrl(), Config.ADVIMGPATH);
+                FileUtils.moveFile(ResourcesConfig.FILETEMP + entity.getImgUrl(), ResourcesConfig.ADVIMGPATH);
             }
 
             if (StringUtil.isNotEmpty(entity.getVideoInfo()) && "inner".equals(entity.getVideoType())) {
                 etVideoMap = gson.fromJson(entity.getVideoInfo(), Map.class);
                 if (StringUtils.isNotNull(etVideoMap.get("img"))) {
-                    FileUtils.moveFile(Config.FILETEMP + etVideoMap.get("img"), Config.ADVIDEOPATH);
+                    FileUtils.moveFile(ResourcesConfig.FILETEMP + etVideoMap.get("img"), ResourcesConfig.ADVIDEOPATH);
                 }
                 if (StringUtils.isNotNull(etVideoMap.get("video"))) {
-                    FileUtils.moveFile(Config.FILETEMP + etVideoMap.get("video"), Config.ADVIDEOPATH);
+                    FileUtils.moveFile(ResourcesConfig.FILETEMP + etVideoMap.get("video"), ResourcesConfig.ADVIDEOPATH);
                 }
             }
 
@@ -88,14 +88,14 @@ public class AdServiceImpl extends BaseServiceImpl<Ad> implements AdService {
                 // 上传的图片名
                 etImgEle.forEach(element -> {
                     etDetailImg.add(element.attr("title"));
-                    com.xy.utils.FileUtils.moveFile(Config.FILETEMP + element.attr("title"), Config.ADVIMGPATH);
-                    element.attr("src", Config.ADVIMGURL + element.attr("title"));
+                    com.xy.utils.FileUtils.moveFile(ResourcesConfig.FILETEMP + element.attr("title"), ResourcesConfig.ADVIMGPATH);
+                    element.attr("src", ResourcesConfig.ADVIMGURL + element.attr("title"));
                 });
 
                 byte[] detail = etDoc.getElementsByTag("body").get(0).children().toString().getBytes();
                 String detailName = StringUtils.getUuid() + ".spd";
 
-                org.apache.commons.io.FileUtils.writeByteArrayToFile(new File(Config.DESADPATH + detailName), detail, false);
+                org.apache.commons.io.FileUtils.writeByteArrayToFile(new File(ResourcesConfig.DESADPATH + detailName), detail, false);
 
                 entity.setGotoInfo(detailName);
             }
@@ -116,14 +116,14 @@ public class AdServiceImpl extends BaseServiceImpl<Ad> implements AdService {
                 if (StringUtils.isNotNull(other.getVideoInfo()) && "inner".equals(entity.getVideoType())) {
                     otVideoMap = gson.fromJson(other.getVideoInfo(), Map.class);
                     if (StringUtils.isNotNull(otVideoMap.get("img")) && StringUtils.isNotNull(etVideoMap.get("img")) && !otVideoMap.get("img").equals(etVideoMap.get("img"))) {
-                        FileUtils.deleteFile(Config.ADVIDEOPATH + otVideoMap.get("img"));
-                        FileUtils.deleteFile(Config.ADVIDEOPATH + otVideoMap.get("video"));
+                        FileUtils.deleteFile(ResourcesConfig.ADVIDEOPATH + otVideoMap.get("img"));
+                        FileUtils.deleteFile(ResourcesConfig.ADVIDEOPATH + otVideoMap.get("video"));
                     }
                 }
 
                 // 内部链接广告详情
                 // 原详情和现详情是否一致，删除修改过的图片
-                File advDetilHtml = new File(Config.DESADPATH + other.getGotoInfo());
+                File advDetilHtml = new File(ResourcesConfig.DESADPATH + other.getGotoInfo());
                 if (advDetilHtml.exists()) {
                     otDoc = Jsoup.parse(advDetilHtml, "UTF-8");
                     if (otDoc != null && otDoc.childNodeSize() > 0) {
@@ -138,10 +138,10 @@ public class AdServiceImpl extends BaseServiceImpl<Ad> implements AdService {
                     }
 
                     delMoreImg.forEach(s -> {
-                        FileUtils.deleteFile(Config.ADVIMGPATH + s);
+                        FileUtils.deleteFile(ResourcesConfig.ADVIMGPATH + s);
                     });
 
-                    FileUtils.deleteFile(Config.DESADPATH + other.getGotoInfo());
+                    FileUtils.deleteFile(ResourcesConfig.DESADPATH + other.getGotoInfo());
                 }
             }
         } catch (IOException e) {
@@ -153,16 +153,16 @@ public class AdServiceImpl extends BaseServiceImpl<Ad> implements AdService {
 
     public List<Ad> handleResult(List<Ad> ads) {
         ads.forEach(ad -> {
-            ad.setImgUrlShow(Config.ADVIMGURL + ad.getImgUrl());
+            ad.setImgUrlShow(ResourcesConfig.ADVIMGURL + ad.getImgUrl());
             if ("innerUrl".equals(ad.getType())) {
-                ad.setGotoInfo(Config.DESADURL + ad.getGotoInfo());
+                ad.setGotoInfo(ResourcesConfig.DESADURL + ad.getGotoInfo());
             }
             if (StringUtils.isNotNull(ad.getVideoInfo()) && "inner".equals(ad.getVideoType())) {
 
                 Gson gson = new Gson();
                 Map<String, Object> map = gson.fromJson(ad.getVideoInfo(), Map.class);
-                map.put("imgShow", Config.ADVIDEOURL + map.get("img"));
-                map.put("videoShow", Config.ADVIDEOURL + map.get("video"));
+                map.put("imgShow", ResourcesConfig.ADVIDEOURL + map.get("img"));
+                map.put("videoShow", ResourcesConfig.ADVIDEOURL + map.get("video"));
                 ad.setVideoInfo(gson.toJson(map));
             }
         });

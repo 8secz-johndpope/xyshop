@@ -1,14 +1,12 @@
 package com.xy.services.impl;
 
 import com.github.pagehelper.PageInfo;
+import com.xy.config.CouponConfig;
 import com.xy.models.Coupon;
 import com.xy.services.CouponService;
 import com.xy.services.ShopCategroyService;
 import com.xy.services.ShopService;
-import com.xy.utils.Config;
-import com.xy.utils.DateUtils;
-import com.xy.utils.RandomUtil;
-import com.xy.utils.StringUtils;
+import com.xy.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Condition;
@@ -36,7 +34,7 @@ public class CouponServiceImpl extends BaseServiceImpl<Coupon> implements Coupon
     public int saveSelective(Coupon entity) {
         entity = this.handleInfo(entity);
         entity.setUuid(StringUtils.getUuid());
-        entity.setNumber(Config.XY_COUPON_PREFIX + RandomUtil.getRandom(12, RandomUtil.TYPE.NUMBER));
+        entity.setNumber(CouponConfig.PREFIX + RandomUtil.getRandom(12, RandomUtil.TYPE.NUMBER));
         entity.setAuthor("lord");
         entity.setAddTime(DateUtils.getCurrentDate());
         return super.saveSelective(entity);

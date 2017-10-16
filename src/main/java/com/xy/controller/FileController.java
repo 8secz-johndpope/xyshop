@@ -2,7 +2,7 @@ package com.xy.controller;
 
 import com.xy.models.Admin;
 import com.xy.redis.Redis;
-import com.xy.utils.Config;
+import com.xy.config.ResourcesConfig;
 import com.xy.utils.FileUtils;
 import com.xy.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,9 +67,9 @@ public class FileController {
         String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
         try {
             // 保存至临时文件夹
-            FileUtils.saveFile(file.getInputStream(), fileName, Config.FILETEMP, suffix);
+            FileUtils.saveFile(file.getInputStream(), fileName, ResourcesConfig.FILETEMP, suffix);
 
-            String[] precess = this.precessImg(suffix, Config.FILETEMP + fileName + "." + suffix, fileName);
+            String[] precess = this.precessImg(suffix, ResourcesConfig.FILETEMP + fileName + "." + suffix, fileName);
             if(precess != null) {
                 resultMap.put("precessImgValue", precess[0]);
                 resultMap.put("precessImg", precess[1]);
@@ -80,7 +80,7 @@ public class FileController {
 
             resultMap.put("value", fileName);
             resultMap.put("done", true);
-            resultMap.put("url", Config.REQTEMP + fileName);
+            resultMap.put("url", ResourcesConfig.REQTEMP + fileName);
             resultMap.put("size", size);
         } catch (IOException e) {
             e.printStackTrace();
@@ -102,11 +102,11 @@ public class FileController {
             String realSuffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
             String suffix = "part";
 
-            FileUtils.saveFile(file.getInputStream(), fileName+ "_" + chunk, Config.FILETEMP, suffix);
+            FileUtils.saveFile(file.getInputStream(), fileName+ "_" + chunk, ResourcesConfig.FILETEMP, suffix);
 
             boolean done = true;
             for (int i = 0; i < chunks; i++) {
-                if(!FileUtils.isExists(Config.FILETEMP + fileName + "_" + i + ".part")) {
+                if(!FileUtils.isExists(ResourcesConfig.FILETEMP + fileName + "_" + i + ".part")) {
                     done = false;
                     break;
                 }
@@ -114,9 +114,9 @@ public class FileController {
 
 
             if(done) {
-                String destFile = Config.FILETEMP + fileName + "." + realSuffix;
+                String destFile = ResourcesConfig.FILETEMP + fileName + "." + realSuffix;
                 for (int i = 0; i < chunks; i++) {
-                    String partFilePath = Config.FILETEMP + fileName + "_" + i + ".part";
+                    String partFilePath = ResourcesConfig.FILETEMP + fileName + "_" + i + ".part";
                     File partFile = new File(partFilePath);
 
                     FileOutputStream dest = new FileOutputStream(destFile, true);
@@ -138,7 +138,7 @@ public class FileController {
             }
             resultMap.put("done", done);
             resultMap.put("value", fileName);
-            resultMap.put("url", Config.REQTEMP + fileName);
+            resultMap.put("url", ResourcesConfig.REQTEMP + fileName);
             resultMap.put("size", file.getSize());
             return resultMap;
         } catch (IOException e) {
@@ -153,9 +153,9 @@ public class FileController {
         if(Arrays.asList(prifx).contains(suffix)) {
             String[] res = new String[2];
             String precessImg = fileName + ".jpg";
-            FileUtils.videoConvert.processImg(Config.FFMPEG_PATH, destFile, Config.FILETEMP+precessImg);
+            FileUtils.videoConvert.processImg(ResourcesConfig.FFMPEG_PATH, destFile, ResourcesConfig.FILETEMP+precessImg);
             res[0] = precessImg;
-            res[1] = Config.REQTEMP + precessImg;
+            res[1] = ResourcesConfig.REQTEMP + precessImg;
             return res;
         }
         return null;

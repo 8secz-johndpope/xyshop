@@ -6,6 +6,7 @@ import cn.jsms.api.SendSMSResult;
 import cn.jsms.api.ValidSMSResult;
 import cn.jsms.api.common.SMSClient;
 import cn.jsms.api.common.model.SMSPayload;
+import com.xy.config.JGConfig;
 import com.xy.redis.Redis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,11 +21,11 @@ public class SmsUtil {
     @Autowired
     private Redis redis;
 
-    SMSClient client  = new SMSClient(Config.jg_masterSecret, Config.jg_appKey);
+    SMSClient client  = new SMSClient(JGConfig.jg_masterSecret, JGConfig.jg_appKey);
 
     public boolean sendCode(String phone) {
         Map<String, String> params = new HashMap<>();
-        SMSPayload payload = SMSPayload.newBuilder().setMobileNumber(phone).setTempId(Config.sms_general_temp_id).setTempPara(params).build();
+        SMSPayload payload = SMSPayload.newBuilder().setMobileNumber(phone).setTempId(JGConfig.sms_general_temp_id).setTempPara(params).build();
         try {
             SendSMSResult result = client.sendSMSCode(payload);
             if(result.getResponseCode() == 200) {

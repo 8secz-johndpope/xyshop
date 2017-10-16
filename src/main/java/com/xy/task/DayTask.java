@@ -1,7 +1,7 @@
 package com.xy.task;
 
 import com.xy.services.CouponService;
-import com.xy.utils.Config;
+import com.xy.config.ResourcesConfig;
 import com.xy.utils.FileUtils;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -25,6 +25,6 @@ public class DayTask {
      */
     @Scheduled(cron = "0 0 3 ? * *")
     public void clearTemp() {
-        FileUtils.deleteFile(Config.FILETEMP);
+        FileUtils.deleteFile(ResourcesConfig.FILETEMP);
     }
 }

@@ -153,7 +153,7 @@ public class Utils {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		return qz + (new Date().getTime() - 1300000000000L);
+		return qz + (System.currentTimeMillis() - 1300000000000L);
 	}
 
 	/**

@@ -1,5 +1,7 @@
 package com.xy.utils;
 
+import com.xy.config.CookieConfig;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,13 +11,13 @@ import java.util.Random;
 public class CookieUtils {
 	
 	public static void addAccountCookie(HttpServletRequest request,HttpServletResponse response, String token) {
-		StringBuilder value=new StringBuilder().append(token).append(Config.XY_TICKET_SEPERATOR);
-		value.append(IpUtils.getIp(request)).append(Config.XY_TICKET_SEPERATOR);
+		StringBuilder value=new StringBuilder().append(token).append(CookieConfig.XY_TICKET_SEPERATOR);
+		value.append(IpUtils.getIp(request)).append(CookieConfig.XY_TICKET_SEPERATOR);
 		value.append(DateUtils.getSpecifiedDayAfterOne(DateUtils.dateToString(new Date(), "yyyyMMddHH:mm:ss")));
-		value.append(Config.XY_TICKET_SEPERATOR).append((new Random().nextInt()));
-		value.append(Config.XY_TICKET_SEPERATOR);
-		value.append(Md5Util.md5LowerCase(value.toString()+Config.XY_TICKET_KEY));
-		addCookie(response, Config.XY_TICKET, value.toString(), 3600*100);
+		value.append(CookieConfig.XY_TICKET_SEPERATOR).append((new Random().nextInt()));
+		value.append(CookieConfig.XY_TICKET_SEPERATOR);
+		value.append(Md5Util.md5LowerCase(value.toString()+CookieConfig.XY_TICKET_KEY));
+		addCookie(response, CookieConfig.XY_TICKET, value.toString(), 3600*100);
 	}
 	
 	/**
@@ -33,8 +35,9 @@ public class CookieUtils {
 			String value, int maxAge) {
 		Cookie cookie = new Cookie(name, value);
 		cookie.setPath("/");
-		if (maxAge > 0)
+		if (maxAge > 0) {
 			cookie.setMaxAge(maxAge);
+		}
 		response.addCookie(cookie);
 	}
 	
@@ -42,7 +45,7 @@ public class CookieUtils {
 		Cookie[] cookies = request.getCookies();
 		if (null != cookies) {
 			for (Cookie cookie : cookies) {
-				if (cookie.getName().equals(Config.XY_TICKET)){
+				if (cookie.getName().equals(CookieConfig.XY_TICKET)){
 					cookie.setMaxAge(0);
 					response.addCookie(cookie);
 				}
@@ -62,8 +65,9 @@ public class CookieUtils {
 		Cookie[] cookies = request.getCookies();
 		if (null != cookies) {
 			for (Cookie cookie : cookies) {
-				if (cookie.getName().equals(name))
+				if (cookie.getName().equals(name)) {
 					return cookie;
+				}
 			}
 		}
 		return null;
@@ -80,7 +84,7 @@ public class CookieUtils {
 			return false;
 		}
 
-		String[] valueArray = StringUtils.strToArray(ticket, Config.XY_TICKET_SEPERATOR);
+		String[] valueArray = StringUtils.strToArray(ticket, CookieConfig.XY_TICKET_SEPERATOR);
 
 		if (valueArray.length != 5) {
 			return false;
@@ -89,9 +93,9 @@ public class CookieUtils {
 		StringBuffer md5Source = new StringBuffer();
 
 		for (int i = 0; i < 4; i++) {
-			md5Source.append(valueArray[i]).append(Config.XY_TICKET_SEPERATOR);
+			md5Source.append(valueArray[i]).append(CookieConfig.XY_TICKET_SEPERATOR);
 		}
-		md5Source.append(Config.XY_TICKET_KEY);
+		md5Source.append(CookieConfig.XY_TICKET_KEY);
 		String md5Local = Md5Util.md5LowerCase(md5Source.toString());
 		String md5InTicket = valueArray[4];
 
