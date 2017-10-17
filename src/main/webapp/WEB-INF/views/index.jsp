@@ -44,7 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="logo-element">
+                                <div class="logo-element">畅
                                 </div>
                             </li>
                             <li>
