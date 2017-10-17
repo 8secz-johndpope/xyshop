@@ -88,6 +88,13 @@ public class PageController {
         return "user/user_list";
     }
 
+
+    /**
+     * 用户详情
+     * @param uuid
+     * @param view
+     * @return
+     */
     @RequestMapping(value = "/user-details.html")
     public ModelAndView userDetailPage(@RequestParam String uuid, ModelAndView view) {
         view.addObject("uuid", uuid);
