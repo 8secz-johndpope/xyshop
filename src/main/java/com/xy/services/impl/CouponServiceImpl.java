@@ -37,6 +37,11 @@ public class CouponServiceImpl extends BaseServiceImpl<Coupon> implements Coupon
         entity.setNumber(CouponConfig.PREFIX + RandomUtil.getRandom(12, RandomUtil.TYPE.NUMBER));
         entity.setAuthor("lord");
         entity.setAddTime(DateUtils.getCurrentDate());
+
+        if(StringUtils.isNull(entity.getEndTime())) {
+            // 设置优惠卷永久有效
+            entity.setEndTime("forever");
+        }
         return super.saveSelective(entity);
     }
 
