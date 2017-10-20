@@ -311,7 +311,13 @@ define(function (require) {
         });
 
 
-
+        $("#to_user").change(function (e) {
+            if($(this).val() == "newuser") {
+                $("#to_goods").children(":gt(0)").hide();
+            } else {
+                $("#to_goods").children(":gt(0)").show();
+            }
+        });
 
 
         /**

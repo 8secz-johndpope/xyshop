@@ -16,7 +16,11 @@ public interface BaseService<T> {
 
     int save(T entity);
 
-    // 保存实体， null属性不保存
+    /**
+     * 保存实体， null属性不保存
+     * @param entity
+     * @return
+     */
     int saveSelective(T entity);
 
     int updateByPrimaryKey(T entity);

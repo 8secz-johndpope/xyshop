@@ -30,12 +30,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <table id="table"></table>
                     </div>
 
-                    <div class="col-sm-12">
-                        <div id="user-toolbar" class="btn-group">
-                            <label>下级会员列表</label>
-                        </div>
-                        <table id="user-table"></table>
-                    </div>
+                    <%--<div class="col-sm-12">--%>
+                        <%--<div id="user-toolbar" class="btn-group">--%>
+                            <%--<label>下级会员列表</label>--%>
+                        <%--</div>--%>
+                        <%--<table id="user-table"></table>--%>
+                    <%--</div>--%>
 
                     <div class="col-sm-12">
                         <div id="order-toolbar" class="btn-group">
@@ -43,8 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <select class="form-control js-change-table-params" id="js-choise-status" style="width: 100px;display: inline-block;">
 								<option value="" selected="selected">全部</option>
 								<option value="waitPay">待支付</option>
-								<option value="waitDelivery">待发货</option>
-								<option value="waitTake">待收货</option>
+								<option value="waitTake">待消费</option>
 								<option value="waitJudge">待评价</option>
 								<option value="judged">已评价</option>
 							</select>
@@ -66,24 +65,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         </div>
                         <table id="cointable"></table>
                     </div>
-                    <div class="col-sm-12">
-                        <div id="coin-back-toolbar" class="btn-group">
-                            <label>会员待返还金币列表</label>
-                        </div>
-                        <table id="coin-back-table"></table>
-                    </div>
-                    <div class="col-sm-12">
-                        <div id="score-toolbar" class="btn-group">
-                            <label>会员积分记录</label>
-                        </div>
-                        <table id="scoretable"></table>
-                    </div>
-                    <div class="col-sm-12">
-                        <div id="score-back-toolbar" class="btn-group">
-                            <label>会员待返还积分列表</label>
-                        </div>
-                        <table id="score-back-table"></table>
-                    </div>
+                    <%--<div class="col-sm-12">--%>
+                        <%--<div id="coin-back-toolbar" class="btn-group">--%>
+                            <%--<label>会员待返还金币列表</label>--%>
+                        <%--</div>--%>
+                        <%--<table id="coin-back-table"></table>--%>
+                    <%--</div>--%>
                     <div class="col-sm-12">
                         <div id="commission-toolbar" class="btn-group">
                             <label>会员佣金记录</label>
