@@ -8,6 +8,9 @@ define(function (require) {
         require('laydate');
         require('dateformat');
 
+        // 优惠卷使用方式
+        var useMethod = null;
+
 
         /**
          * 加载表格
@@ -202,7 +205,7 @@ define(function (require) {
                     $("#js-usermax").val(row.userMaxNum);
                     $("#js-start-time").val(row.startTime);
                     $("#js-end-time").val(row.endTime='forever' ? '' : row.endTime);
-                    $("input[value='" + row.useMethod + "']").iCheck('check');
+                    $("#" + row.useMethod).iCheck('check');
 
                     $("#js-add-btn").addClass('hide');
                     $("#js-update-btn").removeClass('hide');
@@ -465,7 +468,7 @@ define(function (require) {
                     userMaxNum:$("#js-usermax").val(),
                     startTime: $("#js-start-time").val(),
                     endTime: $("#js-end-time").val(),
-                    useMethod: $("input[name='use-method'][checked='checked']").val()
+                    useMethod: useMethod
                 },
                 async: true,
                 success: function (data) {
@@ -538,7 +541,7 @@ define(function (require) {
                     userMaxNum:$("#js-usermax").val(),
                     startTime: $("#js-start-time").val(),
                     endTime: $("#js-end-time").val(),
-                    useMethod: $("input[name='use-method'][checked='checked']").val()
+                    useMethod: useMethod
                 },
                 async: true,
                 success: function (data) {
@@ -586,10 +589,15 @@ define(function (require) {
         });
 
 
+
+
         $('input.radio').iCheck({
             checkboxClass: 'icheckbox_square-green',
             radioClass: 'iradio_square-green',
             increaseArea: '20%' // optional
+        }).on("ifChecked", function (event) {
+            useMethod = $(event.target).val();
+            console.log(useMethod);
         });
     });
 });

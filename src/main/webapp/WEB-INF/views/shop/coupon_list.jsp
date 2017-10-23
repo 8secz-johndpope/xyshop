@@ -182,8 +182,7 @@
                     <div class="form-group">
                         <label>使用方式</label>
                         <label class="radio-inline">
-                            <input class="radio" type="radio" name="use-method" checked="checked" id="explicit"
-                                   value="explicit"/>
+                            <input class="radio" type="radio" name="use-method" checked="checked" id="explicit" value="explicit"/>
                             <label for="explicit">显式使用
                                 <small>(满足一定条件自动赠送优惠卷，用户主动选择使用)</small>
                             </label>

@@ -38,8 +38,14 @@ public class CouponController {
             cri.andLike("", "%" + pj.getSearch() + "%");
         }
 
-        if (StringUtils.isNotNull(pj.getParams().get("status"))) {
-            cri.andEqualTo("status", pj.getParams().get("status"));
+        String status = "status", author = "author";
+        if (StringUtils.isNotNull(pj.getParams().get(status))) {
+            cri.andEqualTo(status, pj.getParams().get(status));
+        }
+
+        // 创建人，用于商铺或官方优惠卷查询
+        if(StringUtils.isNotNull(pj.getParams().get(author))) {
+            cri.andEqualTo(author, pj.getParams().get(author));
         }
 
         cond.setOrderByClause(pj.getOrder());

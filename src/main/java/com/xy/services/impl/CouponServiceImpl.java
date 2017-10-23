@@ -3,6 +3,7 @@ package com.xy.services.impl;
 import com.github.pagehelper.PageInfo;
 import com.xy.config.CouponConfig;
 import com.xy.models.Coupon;
+import com.xy.models.Shop;
 import com.xy.services.CouponService;
 import com.xy.services.ShopCategroyService;
 import com.xy.services.ShopService;
@@ -35,7 +36,20 @@ public class CouponServiceImpl extends BaseServiceImpl<Coupon> implements Coupon
         entity = this.handleInfo(entity);
         entity.setUuid(StringUtils.getUuid());
         entity.setNumber(CouponConfig.PREFIX + RandomUtil.getRandom(12, RandomUtil.TYPE.NUMBER));
-        entity.setAuthor("lord");
+
+        // 创建人为空则标识为官方人员创建
+        if(StringUtils.isNull(entity.getAuthor())) {
+            entity.setAuthor("lord");
+        } else {
+            entity.setBearParty("supplier");
+
+            // 设置商铺为活动期间
+            Shop shop = new Shop();
+            shop.setActive(true);
+            shop.setUuid(entity.getAuthor());
+            shopService.updateByPrimaryKeySelective(shop);
+        }
+
         entity.setAddTime(DateUtils.getCurrentDate());
 
         if(StringUtils.isNull(entity.getEndTime())) {

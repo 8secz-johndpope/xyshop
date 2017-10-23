@@ -153,6 +153,8 @@ public class Shop {
     @Column(name = "shop_detail")
     private String shopDetail;
 
+    private boolean active;
+
     @Transient
     private String thumbImgShow;
     @Transient
@@ -654,5 +656,14 @@ public class Shop {
 
     public void setDistance(String distance) {
         this.distance = distance;
+    }
+
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

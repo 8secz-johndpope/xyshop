@@ -35,5 +35,6 @@
     <result column="scale" jdbcType="VARCHAR" property="scale" />
     <result column="endTime" jdbcType="VARCHAR" property="endtime" />
     <result column="shop_detail" jdbcType="LONGVARCHAR" property="shopDetail" />
+    <result column="active" jdbcType="TINYINT" property="active" />
   </resultMap>
 </mapper>
