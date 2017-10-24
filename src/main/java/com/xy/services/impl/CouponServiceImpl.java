@@ -1,13 +1,16 @@
 package com.xy.services.impl;
 
 import com.github.pagehelper.PageInfo;
+import com.xy.config.Config;
 import com.xy.config.CouponConfig;
 import com.xy.models.Coupon;
 import com.xy.models.Shop;
 import com.xy.services.CouponService;
 import com.xy.services.ShopCategroyService;
 import com.xy.services.ShopService;
-import com.xy.utils.*;
+import com.xy.utils.DateUtils;
+import com.xy.utils.RandomUtil;
+import com.xy.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Condition;
@@ -39,7 +42,7 @@ public class CouponServiceImpl extends BaseServiceImpl<Coupon> implements Coupon
 
         // 创建人为空则标识为官方人员创建
         if(StringUtils.isNull(entity.getAuthor())) {
-            entity.setAuthor("lord");
+            entity.setAuthor(Config.lord);
         } else {
             entity.setBearParty("supplier");
 
