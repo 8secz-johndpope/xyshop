@@ -153,6 +153,10 @@ define(function (require) {
                 }
             }
         },{
+            field: 'author',
+            title: '创建人',
+            align: 'center'
+        },{
             field: 'addTime',
             title: '创建时间',
             align: 'center',

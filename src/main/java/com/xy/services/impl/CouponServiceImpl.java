@@ -15,8 +15,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Condition;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
+/**
+ * CouponServiceImpl
+ *
+ * @author Administrator
+ * @date 2017/10/30 15:12
+ * @description
+ */
 @Service
 public class CouponServiceImpl extends BaseServiceImpl<Coupon> implements CouponService {
 
@@ -41,7 +52,7 @@ public class CouponServiceImpl extends BaseServiceImpl<Coupon> implements Coupon
         entity.setNumber(CouponConfig.PREFIX + RandomUtil.getRandom(12, RandomUtil.TYPE.NUMBER));
 
         // 创建人为空则标识为官方人员创建
-        if(StringUtils.isNull(entity.getAuthor())) {
+        if (StringUtils.isNull(entity.getAuthor())) {
             entity.setAuthor(Config.lord);
         } else {
             entity.setBearParty("supplier");
@@ -55,7 +66,7 @@ public class CouponServiceImpl extends BaseServiceImpl<Coupon> implements Coupon
 
         entity.setAddTime(DateUtils.getCurrentDate());
 
-        if(StringUtils.isNull(entity.getEndTime())) {
+        if (StringUtils.isNull(entity.getEndTime())) {
             // 设置优惠卷永久有效
             entity.setEndTime("forever");
         }
@@ -68,7 +79,6 @@ public class CouponServiceImpl extends BaseServiceImpl<Coupon> implements Coupon
         entity = this.handleInfo(entity);
         return super.updateByPrimaryKeySelective(entity);
     }
-
 
 
     @Override
@@ -85,24 +95,31 @@ public class CouponServiceImpl extends BaseServiceImpl<Coupon> implements Coupon
 
 
     private Coupon handleInfo(Coupon entity) {
+        try {
+            // 未设置有效期开始日
+            if (StringUtils.isNull(entity.getStartTime())) {
+                entity.setStartTime(DateUtils.getDate());
+            }
+            //未设置有效期开始日,表示永久有效
+            if (StringUtils.isNull(entity.getEndTime())) {
+                entity.setEndTime("forever");
+            }
 
-        // 未设置有效期开始日
-        if (StringUtils.isNull(entity.getStartTime())) {
-            entity.setStartTime(DateUtils.getDate());
+
+            Calendar start = Calendar.getInstance();
+
+            start.setTime(new SimpleDateFormat("yyyy-MM-dd").parse(entity.getStartTime()));
+
+            Calendar today = Calendar.getInstance();
+            if (start.compareTo(today) < 1) {
+                entity.setStatus("online");
+            } else {
+                // 每天晚上 凌晨 扫描需要上线的优惠活动
+                entity.setStatus("waitOnline");
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-        //未设置有效期开始日,表示永久有效
-        if (StringUtils.isNull(entity.getEndTime())) {
-            entity.setEndTime("forever");
-        }
-
-
-        if (entity.getStartTime().equals(DateUtils.getDate())) {
-            entity.setStatus("online");
-        } else {
-            // 每天晚上 凌晨 扫描需要上线的优惠活动
-            entity.setStatus("waitOnline");
-        }
-
         return entity;
     }
 
@@ -113,10 +130,15 @@ public class CouponServiceImpl extends BaseServiceImpl<Coupon> implements Coupon
             String value = coupon.getToGoods();
             if (value.equals("cate")) {
                 coupon.setToGoodsValueText(categroyService.selectOnlyByKey(coupon.getToGoodsValue()).getName());
-            } else if(value.equals("shop")) {
+            } else if (value.equals("shop")) {
                 coupon.setToGoodsValueText(shopService.selectOnlyByKey(coupon.getToGoodsValue()).getName());
             }
 
+            if(Config.lord.equals(coupon.getAuthor())) {
+                coupon.setAuthor("官方");
+            } else {
+                coupon.setAuthor(shopService.selectOnlyByKey(coupon.getAuthor()).getName());
+            }
         });
         return coupons;
     }
