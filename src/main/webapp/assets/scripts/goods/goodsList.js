@@ -44,16 +44,13 @@ define(function (require) {
                 return imgUpStr(row.moreImgShow, index);
             }
         }, {
-            field: 'addTime',
-            title: '添加时间',
+            field: 'orgPrice',
+            title: '门市价',
             align: 'center',
-            sortable: true,
         }, {
-            field: 'updateTime',
-            title: '修改时间',
+            field: 'price',
+            title: '价格',
             align: 'center',
-            sortable: true,
-            visible: false,
         }, {
             field: 'saleNum',
             title: '销售量',
@@ -78,6 +75,17 @@ define(function (require) {
                 }
                 return "-";
             }
+        }, {
+            field: 'addTime',
+            title: '添加时间',
+            align: 'center',
+            sortable: true,
+        }, {
+            field: 'updateTime',
+            title: '修改时间',
+            align: 'center',
+            sortable: true,
+            visible: false,
         }, {
             field: 'operate',
             title: '操作',

@@ -1,5 +1,10 @@
 define(function (require) {
     require.async(['jquery', 'contabs', 'ueditor', 'ueconfig', 'icheck'], function () {
+        /**
+         * 高德地图
+         */
+        require('AMap');
+
         var imgs = require("imgsUtils");
         var $imgs = new imgs();
         var common = require('common');
@@ -14,10 +19,6 @@ define(function (require) {
         var $upload = new upload(),
             $upload2 = new upload();
 
-        /**
-         * 高德地图
-         */
-        require('AMap');
 
         var map = new AMap.Map('allmap', {
             resizeEnable: true,
@@ -100,6 +101,11 @@ define(function (require) {
                     return "-"
             },
         }, {
+            field: 'scale',
+            title: '结算比例',
+            align: 'center',
+            visible: false,
+        }, {
             field: 'longitude',
             title: '经纬度',
             align: 'center',
@@ -115,9 +121,9 @@ define(function (require) {
             title: '状态',
             align: 'center',
             formatter: function (value, row, index) {
-                if (value == "freeze") {
+                if (value === "freeze") {
                     return "<span style='color: red;'>冻结</span>";
-                } else if(value == "online") {
+                } else if (value === "online") {
                     return "<span>上架</span>";
                 }
             }
@@ -142,103 +148,35 @@ define(function (require) {
             field: 'operate',
             title: '操作',
             align: 'center',
-            formatter: function (value, row, index) { 
+            formatter: function (value, row, index) {
                 var opt = [];
                 opt.push('<a class="btn btn-outline btn-success js-update">修改</a>');
                 opt.push('<a class="btn btn-outline btn-danger js-freeze">' + (row.status == "freeze" ? "解冻" : "冻结") + '</a>');
-                opt.push('<a class="btn btn-outline btn-danger js-delete">删除</a>');
+                // opt.push('<a class="btn btn-outline btn-danger js-delete">删除</a>');
+                opt.push('<a class="btn btn-outline btn-success js-scale">配置结算比例</a>');
                 opt.push('<a href="shop/home.html?u=' + row.uuid + '" class="btn btn-outline btn-info J_menuItem">详情</a>');
                 return opt.join(" ");
             },
             events: {
                 'click .js-update': function (e, value, row, index) {
-                    $("#js-update-uuid").val(row.uuid);
-                    $("#js-add-name").val(row.name);
-                    $("#js-add-shopphone").val(row.shopPhone);
-                    $("#js-add-ownerphone").val(row.ownerPhone);
-
-                    $("#js-add-scale").val(row.scale);
-                    $("#js-add-endTime").val(row.endtime);
-                    var areasArray = row.areaid.split(',');
-                    $("#js-add-pro").val(areasArray[0]);
-
-                    getAreaFuc("#js-add-city", areasArray[0]).then(function () {
-                        $("#js-add-city").val(areasArray[1]);
-                        getAreaFuc("#js-add-area", areasArray[1]).then(function () {
-                            $("#js-add-area").val(areasArray[2]);
-                        });
-                    });
-
-                    $("#js-add-address").val(row.address);
-                    $("#js-add-jingweidu").val(row.longitude + "," + row.latitude);
-                    /*百度地图加载*/
-                    map.clearMap();
-                    var lnglat = new AMap.LngLat(row.longitude, row.latitude);
-                    var mark = new AMap.Marker({
-                        position: lnglat
-                    });
-                    map.setZoom(13);
-                    map.setCenter(lnglat);
-                    map.panTo(lnglat);
-                    map.add(mark);
-
-                    $("#cat-name").val(row.shopCatName);
-                    $("#cat-uuid").val(row.shopCatUuid);
-
-                    $(".js-thumbimg-show").html(imgUpStr(row.thumbImg, row.thumbImgShow, 'js-thumb-img'));
-                    $(".js-moreimg-show").html(imgUpStr(row.moreImg, row.moreImgShow, 'js-more-img'));
-
-                    $('#js-add-btn').addClass('hide');
-                    $('#js-update-btn').removeClass('hide');
-                    $('#js-pwd-box').addClass('hide');
-                    $("#addModal").modal({
-                        backdrop: 'static'
-                    });
-
-                    $.post(row.shopDetail, {}, function (data, textStatus, jqXHR) {
-                        edit.setContent(data);
-                    }, "text");
+                    updateModel(row);
                 },
                 'click .js-freeze': function (e, value, row, index) {
-                    var text, _status;
-                    if (row.status == "freeze") {
-                        text = "解冻";
-                        _status = "online";
-                    } else {
-                        text = "冻结";
-                        _status = "freeze";
-                    }
-                    $alert._warning("确认" + text + "商家？", "该操作将" + text + "商家:\"" + row.name + "\"", function () {
-                        $.ajax({
-                            url: "/xyshop-supplier/shop/update",
-                            contentType: "application/x-www-form-urlencoded; charset=utf-8",
-                            type: "post",
-                            dataType: "json",
-                            data: {
-                                uuid: row.uuid,
-                                status: _status
-                            },
-                            async: true,
-                            success: function (data) {
-                                $alert._strSuc("商家" + text + "成功");
-                                $t._refresh();
-                            },
-                            error: function () {
-                                $alert._alert("操作失败");
-                            }
-                        });
-                    });
+                    freezeAction(row);
                 },
-                'click .js-delete': function (e, value, row, index) {
-                    $alert._warning("确认删除该商家？", "该操作将删除商家:\"" + row.name + "\"", function () {
-                        $.post("/xyshop-supplier/shop/del", {
-                            uuid: row.uuid
-                        }, function (data, textStatus, jqXHR) {
-                            $alert._strSuc("商家删除成功");
-                            $t._refresh();
-                        }, "json");
-                    });
+                'click .js-scale': function (e, value, row, index) {
+                    modScale(row);
                 }
+                // 'click .js-delete': function (e, value, row, index) {
+                //     $alert._warning("确认删除该商家？", "该操作将删除商家:\"" + row.name + "\"", function () {
+                //         $.post("/xyshop-supplier/shop/del", {
+                //             uuid: row.uuid
+                //         }, function (data, textStatus, jqXHR) {
+                //             $alert._strSuc("商家删除成功");
+                //             $t._refresh();
+                //         }, "json");
+                //     });
+                // }
             },
         }];
         t._setSort('addTime', 'desc');
@@ -255,10 +193,136 @@ define(function (require) {
             $t._refresh();
         });
 
+
+        /**
+         * 更新面板
+         * @param row
+         */
+        var updateModel = function (row) {
+            $("#js-update-uuid").val(row.uuid);
+            $("#js-add-name").val(row.name);
+            $("#js-add-shopphone").val(row.shopPhone);
+            $("#js-add-ownerphone").val(row.ownerPhone);
+
+            $("#js-add-scale").val(row.scale);
+            $("#js-add-endTime").val(row.endtime);
+            var areasArray = row.areaid.split(',');
+            $("#js-add-pro").val(areasArray[0]);
+
+            getAreaFuc("#js-add-city", areasArray[0]).then(function () {
+                $("#js-add-city").val(areasArray[1]);
+                getAreaFuc("#js-add-area", areasArray[1]).then(function () {
+                    $("#js-add-area").val(areasArray[2]);
+                });
+            });
+
+            $("#js-add-address").val(row.address);
+            $("#js-add-jingweidu").val(row.longitude + "," + row.latitude);
+            /*百度地图加载*/
+            map.clearMap();
+            var lnglat = new AMap.LngLat(row.longitude, row.latitude);
+            var mark = new AMap.Marker({
+                position: lnglat
+            });
+            map.setZoom(13);
+            map.setCenter(lnglat);
+            map.panTo(lnglat);
+            map.add(mark);
+
+            $("#cat-name").val(row.shopCatName);
+            $("#cat-uuid").val(row.shopCatUuid);
+
+            $(".js-thumbimg-show").html(imgUpStr(row.thumbImg, row.thumbImgShow, 'js-thumb-img'));
+            $(".js-moreimg-show").html(imgUpStr(row.moreImg, row.moreImgShow, 'js-more-img'));
+
+            $('#js-add-btn').addClass('hide');
+            $('#js-update-btn').removeClass('hide');
+            $('#js-pwd-box').addClass('hide');
+            $("#addModal").modal({
+                backdrop: 'static'
+            });
+
+            $.post(row.shopDetail, {}, function (data, textStatus, jqXHR) {
+                edit.setContent(data);
+            }, "text");
+        }
+
+
+        /**
+         * 冻结操作
+         * @param row
+         */
+        var freezeAction = function (row) {
+            var text, _status;
+            if (row.status == "freeze") {
+                text = "解冻";
+                _status = "online";
+            } else {
+                text = "冻结";
+                _status = "freeze";
+            }
+            $alert._warning("确认" + text + "商家？", "该操作将" + text + "商家:\"" + row.name + "\"", function () {
+                $.ajax({
+                    url: "/xyshop-supplier/shop/update",
+                    contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        uuid: row.uuid,
+                        status: _status
+                    },
+                    async: true,
+                    success: function (data) {
+                        $alert._strSuc("商家" + text + "成功");
+                        $t._refresh();
+                    },
+                    error: function () {
+                        $alert._alert("操作失败");
+                    }
+                });
+            });
+        };
+
+
+        var modScale = function (row) {
+            $alert._fuc(function () {
+                swal({
+                        title: row.name,
+                        type: "input",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "修改",
+                        cancelButtonText: "取消",
+                        closeOnConfirm: false,
+                        closeOnCancel: false,
+                        inputPlaceholder: "修改结算比例"
+                    },
+                    function (inputValue) {
+                        if (inputValue) {
+                            let params = {
+                                uuid: row.uuid,
+                                scale: inputValue
+                            };
+                            $.post("/xyshop-supplier/shop/modify", params, function (result) {
+                                if (result === "success") {
+                                    $alert._strSuc("结算比例修改成功");
+                                    $t._refresh();
+                                } else {
+                                    $alert._strSuc("结算比例修改失败");
+                                }
+                            });
+                        } else {
+                            swal("已取消", "您取消了操作或没有填写参数！", "error");
+                        }
+                    })
+            });
+        }
+
+
         /**
          * 显示上传的图片
-         * @param {*} src 
-         * @param {*} index 
+         * @param {*} src
+         * @param {*} index
          */
         var imgUpStr = function (org, src, _class) {
             if ($common._noEmpty(src)) {
@@ -332,7 +396,6 @@ define(function (require) {
         $("#js-add-endTime").click(function (e) {
             laydate(endTime);
         });
-
 
 
         $(document).on("click", "#js-add-btn", function (e) {
@@ -553,7 +616,7 @@ define(function (require) {
 
         /**
          * 加载城市列表
-         * 
+         *
          * @param {any} seletive 填充目标元素
          * @param {any} area 选择的城市id
          */

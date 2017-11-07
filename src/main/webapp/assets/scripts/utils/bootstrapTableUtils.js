@@ -77,10 +77,17 @@ define(function (require, exports, module) {
                 minimumCountColumns: 2,
                 columns: columns,
                 responseHandler: function (res) {
-                    return {
-                        total: res.total,
-                        rows: res.list
-                    };
+                    if(res instanceof Array) {
+                        return {
+                            total: res.length,
+                            rows: res
+                        };
+                    } else {
+                        return {
+                            total: res.total,
+                            rows: res.list
+                        };
+                    }
                 },
                 onEditableSave: oTableInit.onEditableSave,
                 onSort: function (name, order) {

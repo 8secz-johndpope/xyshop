@@ -7,6 +7,7 @@
     -->
     <id column="uuid" jdbcType="CHAR" property="uuid" />
     <result column="param_key" jdbcType="VARCHAR" property="paramKey" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="param_value" jdbcType="VARCHAR" property="paramValue" />
     <result column="introduce" jdbcType="VARCHAR" property="introduce" />
     <result column="time" jdbcType="VARCHAR" property="time" />

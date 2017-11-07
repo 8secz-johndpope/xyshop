@@ -24,9 +24,19 @@ public class SystemParams {
     private String time;
 
     /**
-     * (分佣类型:  下级会员购买自营产品:recharge,  下级会员线下买单:customer_md,  下级商家收单(会员通过买单支付):shop_sd),  (用户提现:withdraw, 商家买单提现:shopwhthdraw)
+     *
      */
     private String type;
+
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     /**
      * @return uuid

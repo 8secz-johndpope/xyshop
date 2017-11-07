@@ -240,8 +240,14 @@ public class PageController {
     }
 
 
-
-
+    /**
+     * 系统参数设置
+     * @return
+     */
+    @RequestMapping(value = "system/params.html")
+    public String sysParams() {
+        return "system/params";
+    }
 
 
 
