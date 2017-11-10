@@ -21,11 +21,11 @@ public class SmsUtil {
     @Autowired
     private Redis redis;
 
-    SMSClient client  = new SMSClient(JGConfig.jg_masterSecret, JGConfig.jg_appKey);
+    SMSClient client  = new SMSClient(JGConfig.JG_MASTERSECRET, JGConfig.JG_APPKEY);
 
     public boolean sendCode(String phone) {
         Map<String, String> params = new HashMap<>();
-        SMSPayload payload = SMSPayload.newBuilder().setMobileNumber(phone).setTempId(JGConfig.sms_general_temp_id).setTempPara(params).build();
+        SMSPayload payload = SMSPayload.newBuilder().setMobileNumber(phone).setTempId(JGConfig.SMS_GENERAL_TEMP_ID).setTempPara(params).build();
         try {
             SendSMSResult result = client.sendSMSCode(payload);
             if(result.getResponseCode() == 200) {
@@ -55,5 +55,24 @@ public class SmsUtil {
             e.printStackTrace();
         }
         return false;
+    }
+
+
+
+    public void sendTempSms(String phone, Map<String, String> params) {
+        SMSPayload payload = SMSPayload.newBuilder().setMobileNumber(phone).setTempId(JGConfig.BUYED_TEMP_ID).setTempPara(params).build();
+        try {
+            client.sendTemplateSMS(payload);
+        } catch (APIConnectionException e) {
+            e.printStackTrace();
+        } catch (APIRequestException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 }

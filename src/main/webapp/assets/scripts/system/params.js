@@ -19,7 +19,14 @@ define(function (require) {
                 if (!$common._noEmpty(value)) {
                     return "-";
                 } else {
-                    return value;
+                    switch (value) {
+                        case "Y":
+                            return "是";
+                        case "N":
+                            return "否";
+                        default:
+                            return value;
+                    }
                 }
             }
         }, {
@@ -35,9 +42,22 @@ define(function (require) {
             title: '操作',
             align: 'center',
             formatter: function (value, row, index) {
-                return '<a class="btn btn-outline btn-info js-params-setting">设置参数</a>';
+                switch (row.paramValue) {
+                    case "Y":
+                    case "N":
+                        return '<a class="btn btn-outline btn-info js-params-change">改变</a>';
+                    default:
+                        return '<a class="btn btn-outline btn-info js-params-setting">设置参数</a>';
+                }
             },
             events: {
+                'click .js-params-change': function (e, value, row, index) {
+                    let params = {
+                        uuid: row.uuid,
+                        paramValue: row.paramValue == 'Y' ? "N" : "Y"
+                    };
+                    changeParams(params);
+                },
                 'click .js-params-setting': function (e, value, row, index) {
                     $alert._fuc(function () {
                         swal({
@@ -57,14 +77,7 @@ define(function (require) {
                                         uuid: row.uuid,
                                         paramValue: inputValue
                                     };
-                                    $.post("params/update", params, function (result) {
-                                        if(result === "success") {
-                                            $alert._strSuc("参数修改成功");
-                                            $t._refresh();
-                                        } else {
-                                            $alert._strSuc("参数修改失败");
-                                        }
-                                    });
+                                    changeParams(params);
                                 } else {
                                     swal("已取消", "您取消了操作或没有填写参数！", "error");
                                 }
@@ -74,5 +87,22 @@ define(function (require) {
             },
         }];
         var $t = t._init("table", "params/list", columns);
+
+        var changeParams = function (params) {
+            $.post("params/update", params, function (result) {
+                if(result === "success") {
+                    $alert._strSuc("参数修改成功");
+                    $t._refresh();
+                } else {
+                    $alert._strSuc("参数修改失败");
+                }
+            });
+        }
+
+        $("#js-reload").click(function (event) {
+            $.post("params/reload", {}, function (result) {
+                $alert._strSuc("刷新缓存成功", "");
+            });
+        });
     });
 });

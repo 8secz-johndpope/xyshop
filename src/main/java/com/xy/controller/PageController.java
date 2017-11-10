@@ -192,6 +192,12 @@ public class PageController {
 
 
 
+    @RequestMapping(value = "orders.html")
+    public String orders() {
+        return "orders/list";
+    }
+
+
     /**
      * 优惠卷页面
      * @return

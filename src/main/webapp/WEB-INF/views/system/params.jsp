@@ -17,6 +17,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="row">
             <div class="col-sm-12">
             <div id="toolbar" class="btn-group">
+                <a type="button" id="js-reload" class="btn btn-outline btn-primary">刷新缓存</a>
 			</div>
                 <table id="table"></table>
             </div>

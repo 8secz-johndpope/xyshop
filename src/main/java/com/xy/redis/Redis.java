@@ -3,6 +3,7 @@ package com.xy.redis;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.data.redis.hash.Jackson2HashMapper;
@@ -33,6 +34,12 @@ public class Redis {
     private HashOperations<String, String, Object> getHashOps() {
         return template.opsForHash();
     }
+
+    private ListOperations<String, String> getListOps() {
+        return template.opsForList();
+    }
+
+    ;
 
     /**
      * END

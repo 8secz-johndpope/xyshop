@@ -153,7 +153,7 @@ public class Shop {
     @Column(name = "shop_detail")
     private String shopDetail;
 
-    private boolean active;
+    private String active;
 
     @Transient
     private String thumbImgShow;
@@ -659,11 +659,11 @@ public class Shop {
     }
 
 
-    public boolean isActive() {
+    public String getActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(String active) {
         this.active = active;
     }
 }

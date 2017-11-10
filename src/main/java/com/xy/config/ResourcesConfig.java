@@ -1,6 +1,8 @@
 package com.xy.config;
 
+import com.xy.redis.RedisUtil;
 import com.xy.utils.FileUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -15,7 +17,13 @@ import org.springframework.core.env.Environment;
 @PropertySource(value = "classpath:config.properties")
 public class ResourcesConfig implements EnvironmentAware {
 
+    @Autowired
+    private RedisUtil redisUtil;
+
+
+
     private Environment env;
+
 
     /**
      * 系统物理路径
@@ -136,6 +144,9 @@ public class ResourcesConfig implements EnvironmentAware {
         FileUtils.createPath(ResourcesConfig.FILETEMP, ResourcesConfig.SHOPPATH, ResourcesConfig.ICONPATH, ResourcesConfig.HEADPATH,
                 ResourcesConfig.PRODUCTIMGPATH, ResourcesConfig.JUDGEIMGPATH, ResourcesConfig.APPPATH, ResourcesConfig.ADVIMGPATH,
                 ResourcesConfig.ADVIDEOPATH, ResourcesConfig.DESSHOPPATH, ResourcesConfig.DESGOODSPATH, ResourcesConfig.DESADPATH);
+
+        // 缓存系统参数配置
+        redisUtil.loadSysParams();
     }
 
 

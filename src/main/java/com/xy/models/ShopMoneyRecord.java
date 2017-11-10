@@ -1,6 +1,7 @@
 package com.xy.models;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Table(name = "shop_money_record")
 public class ShopMoneyRecord {
@@ -22,13 +23,13 @@ public class ShopMoneyRecord {
     /**
      * 收入或支出金额
      */
-    private Integer money;
+    private BigDecimal money;
 
     /**
      * 收入或支出后余额
      */
     @Column(name = "left_money")
-    private Integer leftMoney;
+    private BigDecimal leftMoney;
 
     /**
      * 类型：income（收入）、expend（支出）
@@ -66,7 +67,7 @@ public class ShopMoneyRecord {
     /**
      * 商户实际收入金额
      */
-    private Integer balance;
+    private BigDecimal balance;
 
     /**
      * 下单类型 custom:（整单购买），assign（套餐购买)
@@ -135,7 +136,7 @@ public class ShopMoneyRecord {
      *
      * @return money - 收入或支出金额
      */
-    public Integer getMoney() {
+    public BigDecimal getMoney() {
         return money;
     }
 
@@ -144,7 +145,7 @@ public class ShopMoneyRecord {
      *
      * @param money 收入或支出金额
      */
-    public void setMoney(Integer money) {
+    public void setMoney(BigDecimal money) {
         this.money = money;
     }
 
@@ -153,7 +154,7 @@ public class ShopMoneyRecord {
      *
      * @return left_money - 收入或支出后余额
      */
-    public Integer getLeftMoney() {
+    public BigDecimal getLeftMoney() {
         return leftMoney;
     }
 
@@ -162,7 +163,7 @@ public class ShopMoneyRecord {
      *
      * @param leftMoney 收入或支出后余额
      */
-    public void setLeftMoney(Integer leftMoney) {
+    public void setLeftMoney(BigDecimal leftMoney) {
         this.leftMoney = leftMoney;
     }
 
@@ -279,7 +280,7 @@ public class ShopMoneyRecord {
      *
      * @return balance - 商户实际收入金额
      */
-    public Integer getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
@@ -288,7 +289,7 @@ public class ShopMoneyRecord {
      *
      * @param balance 商户实际收入金额
      */
-    public void setBalance(Integer balance) {
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 

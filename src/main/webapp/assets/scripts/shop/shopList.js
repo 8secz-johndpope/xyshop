@@ -103,8 +103,7 @@ define(function (require) {
         }, {
             field: 'scale',
             title: '结算比例',
-            align: 'center',
-            visible: false,
+            align: 'center'
         }, {
             field: 'longitude',
             title: '经纬度',
@@ -139,21 +138,20 @@ define(function (require) {
             field: 'addTime',
             title: '添加时间',
             align: 'center',
-        }, {
-            field: 'scale',
-            title: '结算比例',
-            align: 'center',
-            visible: false,
-        }, {
+        },{
             field: 'operate',
             title: '操作',
             align: 'center',
             formatter: function (value, row, index) {
                 var opt = [];
                 opt.push('<a class="btn btn-outline btn-success js-update">修改</a>');
-                opt.push('<a class="btn btn-outline btn-danger js-freeze">' + (row.status == "freeze" ? "解冻" : "冻结") + '</a>');
+                if(row.status == "freeze") {
+                    opt.push('<a class="btn btn-outline btn-info js-freeze">解冻</a>');
+                } else {
+                    opt.push('<a class="btn btn-outline btn-danger js-freeze">冻结</a>');
+                }
                 // opt.push('<a class="btn btn-outline btn-danger js-delete">删除</a>');
-                opt.push('<a class="btn btn-outline btn-success js-scale">配置结算比例</a>');
+                opt.push('<a class="btn btn-outline btn-success js-scale">结算比例</a>');
                 opt.push('<a href="shop/home.html?u=' + row.uuid + '" class="btn btn-outline btn-info J_menuItem">详情</a>');
                 return opt.join(" ");
             },
@@ -262,22 +260,16 @@ define(function (require) {
                 _status = "freeze";
             }
             $alert._warning("确认" + text + "商家？", "该操作将" + text + "商家:\"" + row.name + "\"", function () {
-                $.ajax({
-                    url: "/xyshop-supplier/shop/update",
-                    contentType: "application/x-www-form-urlencoded; charset=utf-8",
-                    type: "post",
-                    dataType: "json",
-                    data: {
-                        uuid: row.uuid,
-                        status: _status
-                    },
-                    async: true,
-                    success: function (data) {
+                var params ={
+                    uuid: row.uuid,
+                    status: _status
+                };
+                $.post("/xyshop-supplier/shop/modify", params, function (result) {
+                    if(result === "success") {
                         $alert._strSuc("商家" + text + "成功");
                         $t._refresh();
-                    },
-                    error: function () {
-                        $alert._alert("操作失败");
+                    } else {
+                        $alert._strSuc("商家" + text + "失败");
                     }
                 });
             });

@@ -59,7 +59,7 @@ public class CouponServiceImpl extends BaseServiceImpl<Coupon> implements Coupon
 
             // 设置商铺为活动期间
             Shop shop = new Shop();
-            shop.setActive(true);
+            shop.setActive("Y");
             shop.setUuid(entity.getAuthor());
             shopService.updateByPrimaryKeySelective(shop);
         }
