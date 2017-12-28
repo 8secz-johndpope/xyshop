@@ -17,7 +17,6 @@
     <result column="operate_time" jdbcType="VARCHAR" property="operateTime" />
     <result column="pay_type" jdbcType="CHAR" property="payType" />
     <result column="balance" jdbcType="DECIMAL" property="balance" />
-    <result column="buy_type" jdbcType="CHAR" property="buyType" />
     <result column="union_order_uuid" jdbcType="VARCHAR" property="unionOrderUuid" />
   </resultMap>
 </mapper>

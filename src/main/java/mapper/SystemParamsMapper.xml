@@ -12,5 +12,6 @@
     <result column="introduce" jdbcType="VARCHAR" property="introduce" />
     <result column="time" jdbcType="VARCHAR" property="time" />
     <result column="type" jdbcType="CHAR" property="type" />
+    <result column="inx" jdbcType="INTEGER" property="inx" />
   </resultMap>
 </mapper>

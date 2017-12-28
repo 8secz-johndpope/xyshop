@@ -13,7 +13,7 @@
     <result column="phone_num" jdbcType="VARCHAR" property="phoneNum" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="score" jdbcType="INTEGER" property="score" />
-    <result column="coin" jdbcType="INTEGER" property="coin" />
+    <result column="coin" jdbcType="DECIMAL" property="coin" />
     <result column="commission" jdbcType="INTEGER" property="commission" />
     <result column="role" jdbcType="CHAR" property="role" />
     <result column="alipay_account" jdbcType="VARCHAR" property="alipayAccount" />
@@ -29,6 +29,7 @@
     <result column="family_address" jdbcType="VARCHAR" property="familyAddress" />
     <result column="address_detail" jdbcType="VARCHAR" property="addressDetail" />
     <result column="openid" jdbcType="VARCHAR" property="openid" />
-    <result column="sceneid" jdbcType="INTEGER" property="sceneid" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="is_new" jdbcType="TINYINT" property="isNew" />
   </resultMap>
 </mapper>

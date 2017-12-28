@@ -32,6 +32,8 @@ public class ResourcesConfig implements EnvironmentAware {
 
     public static final String FFMPEG_PATH = SYSTEM_PATH + "assets\\plugins\\";
 
+    public static String fileApp;
+    public static String reqApp;
 
     /**
      * 文件临时保存路径
@@ -124,7 +126,7 @@ public class ResourcesConfig implements EnvironmentAware {
         ResourcesConfig.DESSHOPPATH = basePath + env.getProperty("file.desShop");
         ResourcesConfig.DESGOODSPATH = basePath + env.getProperty("file.desgoods");
         ResourcesConfig.DESADPATH = basePath + env.getProperty("file.descAd");
-
+        ResourcesConfig.fileApp = basePath + env.getProperty("file.app");
 
 
         ResourcesConfig.REQTEMP = baseUrl + env.getProperty("req.temp");
@@ -139,11 +141,12 @@ public class ResourcesConfig implements EnvironmentAware {
         ResourcesConfig.DESSHOPURL = baseUrl + env.getProperty("req.desShop");
         ResourcesConfig.DESGOODSURL = baseUrl + env.getProperty("req.desgoods");
         ResourcesConfig.DESADURL = baseUrl + env.getProperty("req.descAd");
+        ResourcesConfig.reqApp = baseUrl + env.getProperty("req.app");
 
 
         FileUtils.createPath(ResourcesConfig.FILETEMP, ResourcesConfig.SHOPPATH, ResourcesConfig.ICONPATH, ResourcesConfig.HEADPATH,
                 ResourcesConfig.PRODUCTIMGPATH, ResourcesConfig.JUDGEIMGPATH, ResourcesConfig.APPPATH, ResourcesConfig.ADVIMGPATH,
-                ResourcesConfig.ADVIDEOPATH, ResourcesConfig.DESSHOPPATH, ResourcesConfig.DESGOODSPATH, ResourcesConfig.DESADPATH);
+                ResourcesConfig.ADVIDEOPATH, ResourcesConfig.DESSHOPPATH, ResourcesConfig.DESGOODSPATH, ResourcesConfig.DESADPATH,ResourcesConfig.fileApp);
 
         // 缓存系统参数配置
         redisUtil.loadSysParams();

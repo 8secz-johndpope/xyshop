@@ -9,8 +9,8 @@
     <result column="shop_uuid" jdbcType="CHAR" property="shopUuid" />
     <result column="alipay_account" jdbcType="VARCHAR" property="alipayAccount" />
     <result column="alipay_account_name" jdbcType="VARCHAR" property="alipayAccountName" />
-    <result column="money" jdbcType="INTEGER" property="money" />
-    <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="money" jdbcType="DECIMAL" property="money" />
+    <result column="score" jdbcType="DECIMAL" property="score" />
     <result column="cart_id" jdbcType="VARCHAR" property="cartId" />
     <result column="cart_name" jdbcType="VARCHAR" property="cartName" />
     <result column="cart_uname" jdbcType="VARCHAR" property="cartUname" />

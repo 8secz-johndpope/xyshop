@@ -151,6 +151,7 @@ public class AdServiceImpl extends BaseServiceImpl<Ad> implements AdService {
     }
 
 
+    @Override
     public List<Ad> handleResult(List<Ad> ads) {
         ads.forEach(ad -> {
             ad.setImgUrlShow(ResourcesConfig.ADVIMGURL + ad.getImgUrl());

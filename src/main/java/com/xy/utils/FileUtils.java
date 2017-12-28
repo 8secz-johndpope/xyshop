@@ -1,5 +1,6 @@
 package com.xy.utils;
 
+import com.xy.pojo.DiskDTO;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
@@ -288,7 +289,27 @@ public class FileUtils {
           
         out.close();
         return targetZip;
-    }  
+    }
+
+	/**
+	 * 获取磁盘信息
+	 * @return
+	 */
+	public static List<DiskDTO> getDiskInfo() {
+		List<DiskDTO> filebean = new ArrayList<DiskDTO>();
+		File[] roots = File.listRoots();//获取磁盘分区列表
+		for (File file : roots) {
+			if(file.getTotalSpace() > 0) {
+				DiskDTO bean = new DiskDTO();
+				bean.setDrive(file.getPath().substring(0, 1));
+				bean.setTotalSpace(file.getTotalSpace()/1024/1024/1024+"G");
+				bean.setSurplusSpace(file.getFreeSpace()/1024/1024/1024+"G");
+				bean.setUsedSpace((file.getTotalSpace() - file.getFreeSpace())/1024/1024/1024+"G");
+				filebean.add(bean);
+			}
+		}
+		return filebean;
+	}
       
     /** 
      * @desc 生成压缩文件。 

@@ -30,6 +30,16 @@ public class SystemParams {
 
     private String name;
 
+    private Integer inx;
+
+    public Integer getInx() {
+        return inx;
+    }
+
+    public void setInx(Integer inx) {
+        this.inx = inx;
+    }
+
     public String getName() {
         return name;
     }

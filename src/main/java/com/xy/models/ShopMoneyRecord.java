@@ -70,12 +70,6 @@ public class ShopMoneyRecord {
     private BigDecimal balance;
 
     /**
-     * 下单类型 custom:（整单购买），assign（套餐购买)
-     */
-    @Column(name = "buy_type")
-    private String buyType;
-
-    /**
      * 商家订单编号
      */
     @Column(name = "union_order_uuid")
@@ -291,24 +285,6 @@ public class ShopMoneyRecord {
      */
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
-    }
-
-    /**
-     * 获取下单类型 custom:（整单购买），assign（套餐购买)
-     *
-     * @return buy_type - 下单类型 custom:（整单购买），assign（套餐购买)
-     */
-    public String getBuyType() {
-        return buyType;
-    }
-
-    /**
-     * 设置下单类型 custom:（整单购买），assign（套餐购买)
-     *
-     * @param buyType 下单类型 custom:（整单购买），assign（套餐购买)
-     */
-    public void setBuyType(String buyType) {
-        this.buyType = buyType == null ? null : buyType.trim();
     }
 
     /**

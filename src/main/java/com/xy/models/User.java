@@ -83,7 +83,7 @@ public class User {
     private String refUserName;
 
     /**
-     * 星级代理特有的推荐二维码
+     * 推荐二维码
      */
     @Column(name = "qrcode_img")
     private String qrcodeImg;
@@ -131,14 +131,8 @@ public class User {
     private String addressDetail;
 
     /**
-     * 微信用户唯一标识，用来区分微信用户是否已经录入
      */
     private String openid;
-
-    /**
-     * 微信用户专属，推荐场景ID
-     */
-    private Integer sceneid;
 
     private String status;
 
@@ -552,40 +546,12 @@ public class User {
         this.addressDetail = addressDetail == null ? null : addressDetail.trim();
     }
 
-    /**
-     * 获取微信用户唯一标识，用来区分微信用户是否已经录入
-     *
-     * @return openid - 微信用户唯一标识，用来区分微信用户是否已经录入
-     */
     public String getOpenid() {
         return openid;
     }
 
-    /**
-     * 设置微信用户唯一标识，用来区分微信用户是否已经录入
-     *
-     * @param openid 微信用户唯一标识，用来区分微信用户是否已经录入
-     */
     public void setOpenid(String openid) {
         this.openid = openid == null ? null : openid.trim();
-    }
-
-    /**
-     * 获取微信用户专属，推荐场景ID
-     *
-     * @return sceneid - 微信用户专属，推荐场景ID
-     */
-    public Integer getSceneid() {
-        return sceneid;
-    }
-
-    /**
-     * 设置微信用户专属，推荐场景ID
-     *
-     * @param sceneid 微信用户专属，推荐场景ID
-     */
-    public void setSceneid(Integer sceneid) {
-        this.sceneid = sceneid;
     }
 
     public String getStatus() {
