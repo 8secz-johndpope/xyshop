@@ -240,7 +240,7 @@ define(function (require) {
                 backdrop: 'static'
             });
 
-            $.post(row.shopDetail, {}, function (data, textStatus, jqXHR) {
+            $.get(row.shopDetail, {}, function (data, textStatus, jqXHR) {
                 edit.setContent(data);
             }, "text");
         }

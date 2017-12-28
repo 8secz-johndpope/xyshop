@@ -1,5 +1,5 @@
-define(function (require) {
-    require.async(['jquery', 'icheck'], function () {
+define(function(require) {
+    require.async(['jquery', 'icheck'], function() {
         var common = require('common');
         var $common = new common();
         require('jqueryUtils')
@@ -9,37 +9,55 @@ define(function (require) {
         /*订单支付表*/
         var ordert = new table();
         var columns = [{
-            field: 'orderNo', title: '订单号', align: 'center',
+            field: 'orderNo',
+            title: '订单号',
+            align: 'center',
         }, {
-            field: 'shopName', title: '商家', align: 'center',
+            field: 'shopName',
+            title: '商家',
+            align: 'center',
         }, {
-            field: 'good.name', title: '商品名', align: 'center',
+            field: 'good.name',
+            title: '商品名',
+            align: 'center',
         }, {
-            field: 'totalPrice', title: '订单总金额', align: 'center',
+            field: 'totalPrice',
+            title: '订单总金额',
+            align: 'center',
         }, {
-            field: 'payPrice', title: '支付金额', align: 'center',
+            field: 'payPrice',
+            title: '支付金额',
+            align: 'center',
         }, {
-            field: 'cardCode', title: '序列码', align: 'center',
+            field: 'cardCode',
+            title: '序列码',
+            align: 'center',
         }, {
-            field: 'coupon', title: '优惠卷', align: 'center',
-        },{
-            field: 'status', title: '订单状态', align: 'center',
-            formatter: function (value, row, index) {
+            field: 'sysTips',
+            title: '优惠卷',
+            align: 'center',
+        }, {
+            field: 'status',
+            title: '订单状态',
+            align: 'center',
+            formatter: function(value, row, index) {
                 switch (value) {
                     case 'waitPay':
                         return "<span class='badge badge-danger'>待支付</span>"
-                    case 'paySuccess':
-                        return "<span class='badge badge-primary'>支付成功</span>"
                     case 'waitConsume':
-                        return "<span class='badge badge-warning'>支付成功</span>"
+                        return "<span class='badge badge-primary'>待使用</span>"
                     case 'consumed':
-                        return "<span class='badge badge-success'>已使用</span>"
+                        return "<span class='badge badge-warning'>已完成</span>"
+                    case 'refunded':
+                        return "<span class='badge badge-success'>已退款</span>"
                 }
                 return "-";
             }
         }, {
-            field: 'payWay', title: '支付方式', align: 'center',
-            formatter: function (value, row, index) {
+            field: 'payWay',
+            title: '支付方式',
+            align: 'center',
+            formatter: function(value, row, index) {
                 switch (value) {
                     case 'coin':
                         return "<span class='badge badge-warning'>金币支付</span>";
@@ -53,11 +71,24 @@ define(function (require) {
                 return "-";
             }
         }, {
-            field: 'addTime', title: '下单时间', align: 'center',
+            field: 'addTime',
+            title: '下单时间',
+            align: 'center',
+            sortable: true
+        }, {
+            field: 'payTime',
+            title: '支付时间',
+            align: 'center',
+            sortable: true
+        }, {
+            field: 'completeTime',
+            title: '核销时间',
+            align: 'center',
+            sortable: true
         }];
         ordert._setTool('#order-toolbar');
         ordert._setSort('addTime', 'desc');
-        var $ordert = ordert._init("ordertable", "/xyshop-supplier/order/list", columns, function (d) {
+        var $ordert = ordert._init("ordertable", "/xyshop-supplier/order/list", columns, function(d) {
             d.status = $('#js-choise-status').val();
             d.payWay = $('#js-choise-payway').val();
             d.startTime = $('#js-date-begin').val();
@@ -66,7 +97,7 @@ define(function (require) {
 
 
         /*指定订单筛选条件，刷新订单列表*/
-        $(".js-change-table-params").change(function (e) {
+        $(".js-change-table-params").change(function(e) {
             $ordert._refresh();
         });
 
@@ -82,7 +113,7 @@ define(function (require) {
             max: "2099-06-16",
             istime: false,
             istoday: true,
-            choose: function (datas) {
+            choose: function(datas) {
                 end.min = datas;
                 end.start = datas;
                 $ordert._refresh();
@@ -95,18 +126,18 @@ define(function (require) {
             max: "2099-06-16",
             istime: false,
             istoday: true,
-            choose: function (datas) {
+            choose: function(datas) {
                 start.max = datas;
                 $ordert._refresh();
             }
         };
-        $("#js-date-begin").click(function (e) {
+        $("#js-date-begin").click(function(e) {
             laydate(start);
         });
-        $("#js-date-end").click(function (e) {
+        $("#js-date-end").click(function(e) {
             laydate(end);
         });
-        $(document).on("click", "#laydate_clear", function (e) {
+        $(document).on("click", "#laydate_clear", function(e) {
             $ordert._refresh();
         });
     });

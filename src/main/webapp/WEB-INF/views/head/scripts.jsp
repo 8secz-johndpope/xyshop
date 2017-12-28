@@ -46,6 +46,7 @@
                 "tableexport": "/xyshop/assets/base/plugins/bootstrap-table/extensions/export/tableExport",
                 "AMap": "http://webapi.amap.com/maps?v=1.3&key=4d2305dc2bee0fc8cdf3c4640ebe9bce",
                 "videojs": "/xyshop/assets/base/plugins/video.js/dist/video.min.js",
+                "echarts": "https://cdnjs.cloudflare.com/ajax/libs/echarts/3.8.5/echarts-en.common.js"
             },
             charset: 'utf-8',
             preload: ["jquery", "bootstrap", "table"]

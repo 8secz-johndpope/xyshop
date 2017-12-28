@@ -238,11 +238,14 @@
             <artifactId>spring-data-redis</artifactId>
             <version>1.8.4.RELEASE</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/biz.paluch.redis/lettuce -->
         <dependency>
             <groupId>biz.paluch.redis</groupId>
             <artifactId>lettuce</artifactId>
-            <version>4.3.3.Final</version>
+            <version>4.4.1.Final</version>
         </dependency>
+
+
         <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
         <dependency>
             <groupId>org.jsoup</groupId>
@@ -259,6 +262,11 @@
             <groupId>cn.jpush.api</groupId>
             <artifactId>jiguang-common</artifactId>
             <version>1.0.8</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>19.0</version>
         </dependency>
     </dependencies>
 

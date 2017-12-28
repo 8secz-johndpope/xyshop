@@ -24,7 +24,7 @@
                         style="width: 100px;display: inline-block;">
                     <option value="" selected="selected">全部</option>
                     <option value="waitPay">待支付</option>
-                    <option value="paySuccess">支付成功</option>
+                    <%--<option value="paySuccess">支付成功</option>--%>
                     <option value="waitConsume">待使用</option>
                     <option value="consumed">已使用</option>
                     <option style="display: none;" value="refunded">已退款</option>

@@ -81,6 +81,8 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="configLocation" value="classpath:mybatis-config.xml"></property>
+        <property name="mapperLocations" value="classpath*:mapper/*.xml" />
+        <property name="typeAliasesPackage" value="com.xy.models"></property>
         <property name="plugins">
             <array>
                 <bean class="com.github.pagehelper.PageInterceptor">
@@ -99,7 +101,7 @@
     </bean>
 
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">
-        <constructor-arg index="0" ref="sqlSessionFactory"/>
+        <constructor-arg ref="sqlSessionFactory"/>
     </bean>
     <bean id="sqlMapper" class="com.github.abel533.sql.SqlMapper" scope="prototype">
         <constructor-arg ref="sqlSession"/>
@@ -107,7 +109,7 @@
 
     <bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.xy.mapper"/>
-
+        <property name="sqlSessionTemplateBeanName" value="sqlSession" />
     </bean>
 
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
