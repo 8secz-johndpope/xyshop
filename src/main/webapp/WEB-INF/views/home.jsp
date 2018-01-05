@@ -38,9 +38,9 @@
     	<div class="row below">
             <div id="orderPageView" class="col-sm-4 charts">
             </div>
-            <div id="platformIncomeExpend" class="col-sm-6 charts">
+            <div id="platformIncomeExpend" class="col-sm-4 charts">
             </div>
-            <div id="disk" class="col-sm-2 charts">
+            <div id="disk" class="col-sm-4 charts">
             </div>
         </div>
     </div>

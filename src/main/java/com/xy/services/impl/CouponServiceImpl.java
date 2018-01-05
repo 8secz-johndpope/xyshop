@@ -8,6 +8,7 @@ import com.xy.models.Shop;
 import com.xy.services.CouponService;
 import com.xy.services.ShopCategroyService;
 import com.xy.services.ShopService;
+import com.xy.services.UnionGoodService;
 import com.xy.utils.DateUtils;
 import com.xy.utils.RandomUtil;
 import com.xy.utils.StringUtils;
@@ -17,6 +18,7 @@ import tk.mybatis.mapper.entity.Condition;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -35,7 +37,8 @@ public class CouponServiceImpl extends BaseServiceImpl<Coupon> implements Coupon
     private ShopCategroyService categroyService;
     @Autowired
     private ShopService shopService;
-
+    @Autowired
+    private UnionGoodService goodService;
 
     @Override
     public PageInfo<Coupon> selectPageInfoByCondition(Condition condition, int offset, int limit) {
@@ -82,15 +85,33 @@ public class CouponServiceImpl extends BaseServiceImpl<Coupon> implements Coupon
 
 
     @Override
-    public void startCoupon() {
+    public void comStartCoupon() {
         Condition cond = new Condition(Coupon.class);
-        cond.createCriteria().andLessThanOrEqualTo("startTime", DateUtils.getDate());
+        cond.createCriteria().andEqualTo("status", "waitOnline").andLessThanOrEqualTo("startTime", DateUtils.getDate());
 
+        List<String> uuids = new ArrayList<>();
+        List<String> shopCoupon = new ArrayList<>();
         List<Coupon> list = super.selectListByCondition(cond);
         list.forEach(coupon -> {
-            coupon.setStatus("online");
-            super.updateByPrimaryKeySelective(coupon);
+            uuids.add(coupon.getUuid());
+            if(!coupon.getAuthor().equals(Config.lord)) {
+                shopCoupon.add(coupon.getAuthor());
+            }
         });
+
+        Coupon coupon = new Coupon();
+        coupon.setStatus("online");
+
+        cond.clear();
+        cond.createCriteria().andIn("uuid", uuids);
+        super.updateByConditionSelective(coupon, cond);
+
+        // 更改商铺处于活动期间
+        Shop shop = new Shop();
+        shop.setActive("Y");
+        cond = new Condition(Shop.class);
+        cond.createCriteria().andIn("uuid", shopCoupon);
+        shopService.updateByConditionSelective(shop, cond);
     }
 
 
@@ -128,10 +149,12 @@ public class CouponServiceImpl extends BaseServiceImpl<Coupon> implements Coupon
     public List<Coupon> handleResult(List<Coupon> coupons) {
         coupons.forEach(coupon -> {
             String value = coupon.getToGoods();
-            if (value.equals("cate")) {
+            if ("cate".equals(value)) {
                 coupon.setToGoodsValueText(categroyService.selectOnlyByKey(coupon.getToGoodsValue()).getName());
-            } else if (value.equals("shop")) {
+            } else if ("shop".equals(value)) {
                 coupon.setToGoodsValueText(shopService.selectOnlyByKey(coupon.getToGoodsValue()).getName());
+            } else if ("good".equals(value)){
+                coupon.setToGoodsValueText(goodService.selectOnlyByKey(coupon.getToGoodsValue()).getName());
             }
 
             if(Config.lord.equals(coupon.getAuthor())) {

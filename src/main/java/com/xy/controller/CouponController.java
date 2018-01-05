@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.*;
 import tk.mybatis.mapper.entity.Condition;
 import tk.mybatis.mapper.entity.Example;
+import tk.mybatis.mapper.util.StringUtil;
 
 @RestController
 @Scope("prototype")
@@ -30,12 +31,14 @@ public class CouponController {
         Example.Criteria cri = cond.createCriteria();
 
         if (StringUtils.isNotNull(pj.getSearch())) {
-            String condition = "$s like", arg = "%" + pj.getSearch() + "%";
             String[] cols = {"name", "number"};
-            for (String col : cols) {
-                cri.andCondition(String.format(condition, StringUtils.camel2Underline(col)), arg);
+            String condition = " %s like ", arg = "'%" + pj.getSearch() + "%'";
+
+            for (int i = 0; i < cols.length; i++) {
+                cols[i] = String.format(condition, StringUtil.camelhumpToUnderline(cols[i])) + arg;
             }
-            cri.andLike("", "%" + pj.getSearch() + "%");
+            String or = org.apache.commons.lang3.StringUtils.join(cols, " or ");
+            cri.andCondition("(" + or + ")");
         }
 
         String status = "status", author = "author";

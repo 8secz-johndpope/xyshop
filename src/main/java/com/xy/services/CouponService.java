@@ -8,5 +8,5 @@ public interface CouponService extends BaseService<Coupon> {
     /**
      * 自动上线规定日期优惠卷
      */
-    void startCoupon();
+    void comStartCoupon();
 }

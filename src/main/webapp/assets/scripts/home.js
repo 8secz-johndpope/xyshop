@@ -2,11 +2,12 @@ define(function(require) {
 	require.async(['jquery'], function() {
 		var alert = require('alertUtils');
 		require("echarts");
+		
 
 		var $alert = new alert();
 
 		// 广告点击量
-		var adPageView = echarts.init(document.getElementById("adPageView"));
+		var adPageView = echarts.init(document.getElementById("adPageView"), "dark");
 		// 订单交易量
 		var orderPageView = echarts.init(document.getElementById("orderPageView"));
 		// 平台收支
@@ -14,11 +15,13 @@ define(function(require) {
 		// 新用户统计
 		var leaguer = echarts.init(document.getElementById("leaguer"));
 
+		var disk = echarts.init(document.getElementById("disk"));
+
 
 
 		let platformIncomeExpendOption = {
 			title: {
-				text: 'ECharts 入门示例'
+				subtext: '测试'
 			},
 			tooltip: {},
 			legend: {
@@ -42,7 +45,10 @@ define(function(require) {
 
 
 		$(document).ready(function(e) {
-			adPageView.setOption({});
+
+			/**
+			 * 近七日支付订单和已完成订单统计
+			 */
 			$.post('/xyshop-supplier/order/charts', {
 				type: 'W'
 			}, function(data, textStatus, xhr) {
@@ -51,6 +57,9 @@ define(function(require) {
 			}, "json");
 
 
+			/**
+			 * 近七日新增用户
+			 */
 			$.post('/xyshop-supplier/user/charts', {
 				type: "W"
 			}, function(_data, textStatus, xhr) {
@@ -65,7 +74,7 @@ define(function(require) {
 					}],
 					title: [{
 						left: 'center',
-						text: '近七日新增会员'
+						subtext: '近七日新增会员'
 					}],
 					tooltip: {
 						trigger: 'axis'
@@ -87,11 +96,14 @@ define(function(require) {
 				leaguer.setOption(leaguerOption);
 			}, "json");
 
-
+			/**
+			 * 近七日点击量最多的广告
+			 */
 			$.post('ad/lastWeekHits', {}, function(data, textStatus, xhr) {
 				/*optional stuff to do after success */
 				console.log(JSON.stringify(data));
-				let xaxisArray = new Array(), seriesArray = new Array();
+				let xaxisArray = new Array(),
+					seriesArray = new Array();
 				for (var i = 0; i < data.length; i++) {
 					xaxisArray.push(data[i].name);
 					seriesArray.push(data[i].hits);
@@ -99,7 +111,7 @@ define(function(require) {
 
 				let adOption = {
 					title: {
-						text: '广告点击量'
+						subtext: '近七日广告点击量'
 					},
 					tooltip: {},
 					legend: {
@@ -116,6 +128,50 @@ define(function(require) {
 					}]
 				};
 				adPageView.setOption(adOption);
+			});
+
+			$.post('file/disk', {}, function(result, textStatus, xhr) {
+				/*optional stuff to do after success */
+
+				for (var i = 0; i < result.series.length; i++) {
+					result.series[i].type = "bar";
+					result.series[i].label = {
+						normal: {
+							show: true,
+							position: 'insideRight'
+						}
+					}
+				}
+
+				let option = {
+					title: {
+						subtext: "磁盘监控"
+					},
+					tooltip: {
+						trigger: 'axis',
+						axisPointer: { // 坐标轴指示器，坐标轴触发有效
+							type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+						}
+					},
+					legend: {
+						data: result.legendData
+					},
+					grid: {
+						left: '3%',
+						right: '4%',
+						bottom: '3%',
+						containLabel: true
+					},
+					xAxis: {
+						type: 'value'
+					},
+					yAxis: {
+						type: 'category',
+						data: result.yAxisData
+					},
+					series: result.series
+				};
+				disk.setOption(option);
 			});
 
 			// leaguer.setOption(leaguerOption);

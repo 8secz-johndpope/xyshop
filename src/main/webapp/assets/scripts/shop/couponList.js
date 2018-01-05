@@ -1,5 +1,5 @@
-define(function (require) {
-    require.async(['jquery', 'contabs', 'icheck'], function () {
+define(function(require) {
+    require.async(['jquery', 'contabs', 'icheck'], function() {
         var common = require('common');
         var $common = new common();
         require('jqueryUtils');
@@ -29,7 +29,7 @@ define(function (require) {
             field: 'bearParty',
             title: '优惠额承担方',
             align: 'center',
-            formatter: function (value, row, index) {
+            formatter: function(value, row, index) {
                 switch (value) {
                     case 'supplier':
                         return '商铺承担';
@@ -41,7 +41,7 @@ define(function (require) {
             field: 'toUser',
             title: '目标群体',
             align: 'center',
-            formatter: function (value, row, index) {
+            formatter: function(value, row, index) {
                 switch (value) {
                     case "all":
                         return "所有用户";
@@ -59,7 +59,7 @@ define(function (require) {
             field: 'rule',
             title: '优惠卷规则',
             align: 'center',
-            formatter: function (value, row, index) {
+            formatter: function(value, row, index) {
                 switch (value) {
                     case 'recoupon':
                         return '返券';
@@ -77,7 +77,7 @@ define(function (require) {
             field: 'toGoods',
             title: '目标商品',
             align: 'center',
-            formatter: function (value, row, index) {
+            formatter: function(value, row, index) {
                 switch (value) {
                     case 'all':
                         return '全场';
@@ -91,13 +91,19 @@ define(function (require) {
             field: 'toGoodsValue',
             title: '目标商品值',
             align: 'center',
-            formatter: function (value, row, index) {
+            formatter: function(value, row, index) {
                 return row.toGoods == "all" ? "*" : row.toGoodsValueText;
             }
         }, {
             field: 'total',
             title: '优惠卷数量',
             align: 'center',
+            formatter: function(value, row, index) {
+                if (value == 0) {
+                    return "无限制"
+                }
+                return value;
+            }
         }, {
             field: 'userMaxNum',
             title: '领取数量限制',
@@ -114,20 +120,20 @@ define(function (require) {
             field: 'endTime',
             title: '有效期止',
             align: 'center',
-            formatter: function (value, row, index) {
+            formatter: function(value, row, index) {
                 return value == "forever" ? '永久有效' : value;
             }
-            
+
         }, {
             field: 'useMethod',
             title: '使用方式',
             align: 'center',
-            formatter: function (value, row, index) {
+            formatter: function(value, row, index) {
                 switch (value) {
                     case 'explicit':
                         return '<span class="text-success">显式使用</span>';
                     case 'implicit':
-                    
+
                         return '<span class="text-info">隐式使用</span>';
                 }
             }
@@ -140,7 +146,7 @@ define(function (require) {
             field: 'status',
             title: '状态',
             align: 'center',
-            formatter: function (value, row, index) {
+            formatter: function(value, row, index) {
                 switch (value) {
                     case 'expired':
                         return '<span class="text-danger">已过期</span>';
@@ -152,11 +158,11 @@ define(function (require) {
                         return '<span class="text-warning">待上线</span>';
                 }
             }
-        },{
+        }, {
             field: 'author',
             title: '创建人',
             align: 'center'
-        },{
+        }, {
             field: 'addTime',
             title: '创建时间',
             align: 'center',
@@ -165,7 +171,7 @@ define(function (require) {
             field: 'operate',
             title: '操作',
             align: 'center',
-            formatter: function (value, row, index) {
+            formatter: function(value, row, index) {
                 var opt = [];
                 opt.push('<a class="btn btn-outline btn-success js-update">修改</a>');
                 opt.push('<a class="btn btn-outline btn-danger js-freeze">' + (row.status == "freeze" ? "解冻" : "冻结") + '</a>');
@@ -173,7 +179,7 @@ define(function (require) {
                 return opt.join(" ");
             },
             events: {
-                'click .js-update': function (e, value, row, index) {
+                'click .js-update': function(e, value, row, index) {
                     $("#js-update-uuid").val(row.uuid);
                     $("#js_name").val(row.name);
                     $("#desc").val(row.description);
@@ -187,18 +193,19 @@ define(function (require) {
                         case 'all':
                             $("#to-good-search-panel, #to-good-selectBox").addClass("hide");
                             $("#js-togood-search").val('');
-                            $("#js-togood-value").val('')
+                            $("#js-togood-value").val('');
                             $("#js-to-good-select").empty();
                             break;
                         case 'cate':
-                            $("#js-togood-sel-text").text("搜索商品分类");
-                            $("#js-togood-search").val(row.toGoodsValueText);
-                            $("#js-togood-value").val(row.toGoodsValue);
-                            $("#to-good-search-panel").removeClass("hide");
-                            $("#to-good-selectBox").addClass("hide");
-                            break;
                         case 'shop':
-                            $("#js-togood-sel-text").text("搜索商铺");
+                        case 'good':
+                            if (row.toGoods == "cate") {
+                                $("#js-togood-sel-text").text("搜索商品分类");
+                            } else if (row.toGoods == "shop") {
+                                $("#js-togood-sel-text").text("搜索商铺");
+                            } else {
+                                $("#js-togood-sel-text").text("搜索商品");
+                            }
                             $("#js-togood-search").val(row.toGoodsValueText);
                             $("#js-togood-value").val(row.toGoodsValue);
                             $("#to-good-search-panel").removeClass("hide");
@@ -208,8 +215,9 @@ define(function (require) {
                     $("#js-count").val(row.total);
                     $("#js-usermax").val(row.userMaxNum);
                     $("#js-start-time").val(row.startTime);
-                    $("#js-end-time").val(row.endTime='forever' ? '' : row.endTime);
+                    $("#js-end-time").val((row.endTime == 'forever') ? '' : row.endTime);
                     $("#" + row.useMethod).iCheck('check');
+                    useMethod = row.useMethod;
 
                     $("#js-add-btn").addClass('hide');
                     $("#js-update-btn").removeClass('hide');
@@ -218,7 +226,7 @@ define(function (require) {
                         backdrop: 'static'
                     });
                 },
-                'click .js-freeze': function (e, value, row, index) {
+                'click .js-freeze': function(e, value, row, index) {
                     var text, _status;
                     if (row.status == "freeze") {
                         text = "解冻";
@@ -227,15 +235,15 @@ define(function (require) {
                         text = "冻结";
                         _status = "freeze";
                     }
-                    $alert._warning("确认" + text + "该优惠卷？", "", function () {
+                    $alert._warning("确认" + text + "该优惠卷？", "", function() {
 
                     });
                 },
-                'click .js-delete': function (e, value, row, index) {
-                    $alert._warning("确认删除该优惠卷？", "", function () {
+                'click .js-delete': function(e, value, row, index) {
+                    $alert._warning("确认删除该优惠卷？", "", function() {
                         $.post("coupon/del", {
                             key: row.uuid
-                        }, function (data, textStatus, jqXHR) {
+                        }, function(data, textStatus, jqXHR) {
                             $alert._strSuc("优惠卷删除成功");
                             $t._refresh();
                         }, "json");
@@ -244,7 +252,7 @@ define(function (require) {
             },
         }];
         t._setSort('addTime', 'desc');
-        var $t = t._init("table", "coupon/pagelist", columns, function (p) {
+        var $t = t._init("table", "coupon/pagelist", columns, function(p) {
             p.status = $("#js-choise-status").val();
         });
         /**
@@ -253,17 +261,17 @@ define(function (require) {
 
 
         /*指定选条件，刷新列表*/
-        $(".js-change-table-params").change(function (e) {
+        $(".js-change-table-params").change(function(e) {
             $t._refresh();
         });
 
 
-        $('#addModal').on('hidden.bs.modal', function (e) {
+        $('#addModal').on('hidden.bs.modal', function(e) {
 
         });
 
         /*添加优惠卷*/
-        $(document).on("click", "#js-add", function (e) {
+        $(document).on("click", "#js-add", function(e) {
 
             $("#js_name").val("");
             $("#desc").val("");
@@ -310,16 +318,16 @@ define(function (require) {
             istoday: true,
         };
 
-        $("#js-start-time").click(function (e) {
+        $("#js-start-time").click(function(e) {
             laydate(startTime);
         });
-        $("#js-end-time").click(function (e) {
+        $("#js-end-time").click(function(e) {
             laydate(endTime);
         });
 
 
-        $("#to_user").change(function (e) {
-            if($(this).val() == "newuser") {
+        $("#to_user").change(function(e) {
+            if ($(this).val() == "newuser") {
                 $("#to_goods").children(":gt(0)").hide();
             } else {
                 $("#to_goods").children(":gt(0)").show();
@@ -333,7 +341,7 @@ define(function (require) {
          * 
          * BEGIN
          */
-        $("#rule").change(function (e) {
+        $("#rule").change(function(e) {
             switch ($(this).val()) {
                 case 'recoupon':
                     $("#rule-desc").text("(输入优惠卷编号)");
@@ -352,7 +360,6 @@ define(function (require) {
 
 
 
-
         /**
          *  目标商品
          *  全场所有商品参加活动
@@ -361,7 +368,7 @@ define(function (require) {
          * 
          *  BEGIN
          */
-        $("#to_goods").change(function (e) {
+        $("#to_goods").change(function(e) {
             switch ($(this).val()) {
                 case 'all':
                     $("#to-good-search-panel, #to-good-selectBox").addClass("hide");
@@ -382,7 +389,7 @@ define(function (require) {
             }
         });
 
-        $("#js-cat-select-btn").click(function (e) {
+        $("#js-cat-select-btn").click(function(e) {
 
             var _url, _search = $("#js-togood-search").val();
 
@@ -396,7 +403,7 @@ define(function (require) {
 
             $.post(_url, {
                 name: _search
-            }, function (data, textStatus, jqXHR) {
+            }, function(data, textStatus, jqXHR) {
                 $(seletive).empty().append('<option value="-">-</option>');
                 for (var key in data) {
                     $(seletive).append('<option value="' + data[key].uuid + '">' + data[key].name + '</option>');
@@ -405,7 +412,7 @@ define(function (require) {
             }, "json");
         });
 
-        $("#js-to-good-sure").click(function (e) {
+        $("#js-to-good-sure").click(function(e) {
             $("#js-togood-search").val($("#js-to-good-select").find("option:selected").text());
             $("#js-togood-value").val($("#js-to-good-select").val());
             $("#to-good-selectBox").addClass("hide");
@@ -417,13 +424,10 @@ define(function (require) {
 
 
 
-
-
-
-        $(document).on("click", "#js-add-btn", function (e) {
+        $(document).on("click", "#js-add-btn", function(e) {
 
             var vernull = false;
-            $("#addModal .form-group input.required").each(function (inx, item) {
+            $("#addModal .form-group input.required").each(function(inx, item) {
                 if (!$(item).val()) {
                     $alert._alert($(item).parent().children().first().text() + "不能为空");
                     vernull = true;
@@ -469,13 +473,13 @@ define(function (require) {
                     toGoods: $("#to_goods").val(),
                     toGoodsValue: _toGoodValue,
                     total: $("#js-count").val(),
-                    userMaxNum:$("#js-usermax").val(),
+                    userMaxNum: $("#js-usermax").val(),
                     startTime: $("#js-start-time").val(),
                     endTime: $("#js-end-time").val(),
                     useMethod: useMethod
                 },
                 async: true,
-                success: function (data) {
+                success: function(data) {
                     if (data == 1) {
                         $alert._strSuc("优惠卷添加成功");
                         $t._refresh();
@@ -484,17 +488,17 @@ define(function (require) {
                         $alert._alert("优惠卷添加失败");
                     }
                 },
-                error: function () {
+                error: function() {
                     $alert._alert("优惠卷添加加失败");
                 }
             });
         });
         /*修改商家类别*/
-        $(document).on("click", "#js-update-btn", function (e) {
+        $(document).on("click", "#js-update-btn", function(e) {
 
 
             var vernull = false;
-            $("#addModal .form-group input.required").each(function (inx, item) {
+            $("#addModal .form-group input.required").each(function(inx, item) {
                 if (!$(item).val()) {
                     $alert._alert($(item).parent().children().first().text() + "不能为空");
                     vernull = true;
@@ -542,13 +546,13 @@ define(function (require) {
                     toGoods: $("#to_goods").val(),
                     toGoodsValue: _toGoodValue,
                     total: $("#js-count").val(),
-                    userMaxNum:$("#js-usermax").val(),
+                    userMaxNum: $("#js-usermax").val(),
                     startTime: $("#js-start-time").val(),
                     endTime: $("#js-end-time").val(),
                     useMethod: useMethod
                 },
                 async: true,
-                success: function (data) {
+                success: function(data) {
                     if (data == 1) {
                         $alert._strSuc("优惠卷修改成功");
                         $t._refresh();
@@ -557,8 +561,8 @@ define(function (require) {
                         $alert._alert("优惠卷修改失败");
                     }
                 },
-                error: function () {
-                    $alert._alert("优惠卷修改加败");
+                error: function() {
+                    $alert._alert("优惠卷修改失败");
                 }
             });
         });
@@ -567,7 +571,7 @@ define(function (require) {
         /**
          * 搜索所属分类
          */
-        $(document).on("click", "#js-cat-select-btn", function (e) {
+        $(document).on("click", "#js-cat-select-btn", function(e) {
             $("#js-cat-select").empty();
             $.ajax({
                 url: "/xyshop-supplier/shop-categroy/list",
@@ -578,7 +582,7 @@ define(function (require) {
                     name: $("#cat-name").val()
                 },
                 async: true,
-                success: function (data) {
+                success: function(data) {
                     for (var key in data) {
                         $("#js-cat-select").append('<option value="' + data[key].uuid + '">' + data[key].name + '</option>');
                     }
@@ -586,7 +590,7 @@ define(function (require) {
                 }
             });
         });
-        $(document).on("click", "#js-cat-sure", function (e) {
+        $(document).on("click", "#js-cat-sure", function(e) {
             $("#cat-selectBox").addClass('hide');
             $("#cat-uuid").val($("#js-cat-select").val().split('-')[0]);
             $("#cat-name").val($("#js-cat-select").find("option:selected").text());
@@ -594,12 +598,11 @@ define(function (require) {
 
 
 
-
         $('input.radio').iCheck({
             checkboxClass: 'icheckbox_square-green',
             radioClass: 'iradio_square-green',
             increaseArea: '20%' // optional
-        }).on("ifChecked", function (event) {
+        }).on("ifChecked", function(event) {
             useMethod = $(event.target).val();
             console.log(useMethod);
         });

@@ -30,8 +30,8 @@
                 "imgsUtils": "/xyshop/assets/scripts/utils/imgsShowUtils.js",
                 "imgTip": "/xyshop/assets/base/plugins/imgtooptip/ToolTip.js",
                 "time": "/xyshop/assets/scripts/utils/timeUtils.js",
-                "echarts": "/xyshop/assets/base/plugins/echarts/echarts-all.js",
-                "echartsUtils": "/xyshop/assets/scripts/utils/echartsUtils.js",
+                // "echarts": "/xyshop/assets/base/plugins/echarts/echarts-all.js",
+                // "echartsUtils": "/xyshop/assets/scripts/utils/echartsUtils.js",
                 "dateformat": "/xyshop/assets/scripts/utils/dateformat.js",
                 "laydateUtils": "/xyshop/assets/scripts/utils/laydateUtils.js",
                 "metisMenu": "/xyshop/assets/base/plugins/metisMenu/jquery.metisMenu.js",
@@ -46,7 +46,8 @@
                 "tableexport": "/xyshop/assets/base/plugins/bootstrap-table/extensions/export/tableExport",
                 "AMap": "http://webapi.amap.com/maps?v=1.3&key=4d2305dc2bee0fc8cdf3c4640ebe9bce",
                 "videojs": "/xyshop/assets/base/plugins/video.js/dist/video.min.js",
-                "echarts": "https://cdnjs.cloudflare.com/ajax/libs/echarts/3.8.5/echarts-en.common.js"
+                "echarts": "https://cdnjs.cloudflare.com/ajax/libs/echarts/3.8.5/echarts-en.common.js",
+                "dark": "/xyshop/assets/base/plugins/echarts/dark.js"
             },
             charset: 'utf-8',
             preload: ["jquery", "bootstrap", "table"]

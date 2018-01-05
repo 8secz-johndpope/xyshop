@@ -56,6 +56,6 @@
 		<!--<table tableName="user_coupon" domainObjectName="UserCoupon"></table>-->
 		<!--<table tableName="ad" domainObjectName="Ad"></table>-->
 		<!--<table tableName="platform_money_record" domainObjectName="PlatformMoneyRecord"></table>-->
-		<table tableName="ad_record" domainObjectName="AdRecord"></table>
+		<table tableName="union_goods" domainObjectName="UnionGoods"></table>
 	</context>
 </generatorConfiguration>

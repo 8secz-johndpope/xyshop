@@ -131,6 +131,8 @@
             <tx:method name="remove*" propagation="REQUIRED"/>
             <tx:method name="del*" propagation="REQUIRED"/>
             <tx:method name="re*" propagation="REQUIRED"/>
+            <!--通用-->
+            <tx:method name="com*" propagation="REQUIRED" />
             <tx:method name="*" propagation="REQUIRED" read-only="true"/>
         </tx:attributes>
     </tx:advice>

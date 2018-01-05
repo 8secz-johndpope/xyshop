@@ -302,9 +302,9 @@ public class FileUtils {
 			if(file.getTotalSpace() > 0) {
 				DiskDTO bean = new DiskDTO();
 				bean.setDrive(file.getPath().substring(0, 1));
-				bean.setTotalSpace(file.getTotalSpace()/1024/1024/1024+"G");
-				bean.setSurplusSpace(file.getFreeSpace()/1024/1024/1024+"G");
-				bean.setUsedSpace((file.getTotalSpace() - file.getFreeSpace())/1024/1024/1024+"G");
+				bean.setTotalSpace(file.getTotalSpace()/1024/1024/1024+"");
+				bean.setSurplusSpace(file.getFreeSpace()/1024/1024/1024+"");
+				bean.setUsedSpace((file.getTotalSpace() - file.getFreeSpace())/1024/1024/1024+"");
 				filebean.add(bean);
 			}
 		}

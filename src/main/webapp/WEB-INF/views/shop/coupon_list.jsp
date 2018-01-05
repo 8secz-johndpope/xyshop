@@ -140,6 +140,7 @@
                             <select class="form-control" name="rule" id="to_goods">
                                 <option selected value="all">全场</option>
                                 <option value="cate">某类型商品</option>
+                                <option value="good">某商品</option>
                                 <%--<option value="shop">商铺</option>--%>
                             </select>
                         </div>

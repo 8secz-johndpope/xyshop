@@ -1,6 +1,7 @@
 package com.xy.controller;
 
 import com.xy.models.Admin;
+import com.xy.pojo.DiskDTO;
 import com.xy.redis.Redis;
 import com.xy.config.ResourcesConfig;
 import com.xy.utils.FileUtils;
@@ -17,9 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Administrator on 2017/7/14 0014.
@@ -41,15 +40,15 @@ public class FileController {
     public @ResponseBody
     Map<String, Object> exec(@RequestParam("file") MultipartFile file, HttpServletRequest request, @SessionAttribute Admin _admin) {
 
-        int chunks = -1,chunk = -1;
-        if(StringUtils.isNotNull(request.getParameter("chunks"))) {
+        int chunks = -1, chunk = -1;
+        if (StringUtils.isNotNull(request.getParameter("chunks"))) {
             chunks = Integer.valueOf(request.getParameter("chunks"));
         }
-        if(StringUtils.isNotNull(request.getParameter("chunk"))) {
+        if (StringUtils.isNotNull(request.getParameter("chunk"))) {
             chunk = Integer.valueOf(request.getParameter("chunk"));
         }
 
-        if(chunk < 0) {
+        if (chunk < 0) {
             return this.uplaod(file);
         } else {
             return this.uploadChunk(file, chunks, chunk, _admin.getUuid());
@@ -58,10 +57,11 @@ public class FileController {
 
     /**
      * 未分片文件
+     *
      * @param file
      * @return
      */
-    private Map<String, Object> uplaod(MultipartFile file){
+    private Map<String, Object> uplaod(MultipartFile file) {
         Map<String, Object> resultMap = new HashMap<>();
         String fileName = StringUtils.getUuid();
         String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
@@ -70,7 +70,7 @@ public class FileController {
             FileUtils.saveFile(file.getInputStream(), fileName, ResourcesConfig.FILETEMP, suffix);
 
             String[] precess = this.precessImg(suffix, ResourcesConfig.FILETEMP + fileName + "." + suffix, fileName);
-            if(precess != null) {
+            if (precess != null) {
                 resultMap.put("precessImgValue", precess[0]);
                 resultMap.put("precessImg", precess[1]);
             }
@@ -91,10 +91,10 @@ public class FileController {
     public Map<String, Object> uploadChunk(MultipartFile file, int chunks, int chunk, String admin_uuid) {
         try {
             Map<String, Object> resultMap = new HashMap<>();
-            String redisStoreName = "partfile_" + file.getName()+"_" + admin_uuid;
+            String redisStoreName = "partfile_" + file.getName() + "_" + admin_uuid;
 
             String fileName = redis.valueGet(redisStoreName);
-            if(StringUtils.isNull(fileName)) {
+            if (StringUtils.isNull(fileName)) {
                 fileName = StringUtils.getUuid();
                 redis.valueSave(redisStoreName, fileName);
             }
@@ -102,18 +102,18 @@ public class FileController {
             String realSuffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
             String suffix = "part";
 
-            FileUtils.saveFile(file.getInputStream(), fileName+ "_" + chunk, ResourcesConfig.FILETEMP, suffix);
+            FileUtils.saveFile(file.getInputStream(), fileName + "_" + chunk, ResourcesConfig.FILETEMP, suffix);
 
             boolean done = true;
             for (int i = 0; i < chunks; i++) {
-                if(!FileUtils.isExists(ResourcesConfig.FILETEMP + fileName + "_" + i + ".part")) {
+                if (!FileUtils.isExists(ResourcesConfig.FILETEMP + fileName + "_" + i + ".part")) {
                     done = false;
                     break;
                 }
             }
 
 
-            if(done) {
+            if (done) {
                 String destFile = ResourcesConfig.FILETEMP + fileName + "." + realSuffix;
                 for (int i = 0; i < chunks; i++) {
                     String partFilePath = ResourcesConfig.FILETEMP + fileName + "_" + i + ".part";
@@ -127,7 +127,7 @@ public class FileController {
                 }
 
                 String[] precess = this.precessImg(realSuffix, destFile, fileName);
-                if(precess != null) {
+                if (precess != null) {
                     resultMap.put("precessImgValue", precess[0]);
                     resultMap.put("precessImg", precess[1]);
                 }
@@ -150,15 +150,66 @@ public class FileController {
 
     private String[] precessImg(String suffix, String destFile, String fileName) {
         String[] prifx = {"avi", "wmv", "3gp", "mov", "mp4", "asf", "asx", "flv"};
-        if(Arrays.asList(prifx).contains(suffix)) {
+        if (Arrays.asList(prifx).contains(suffix)) {
             String[] res = new String[2];
             String precessImg = fileName + ".jpg";
-            FileUtils.videoConvert.processImg(ResourcesConfig.FFMPEG_PATH, destFile, ResourcesConfig.FILETEMP+precessImg);
+            FileUtils.videoConvert.processImg(ResourcesConfig.FFMPEG_PATH, destFile, ResourcesConfig.FILETEMP + precessImg);
             res[0] = precessImg;
             res[1] = ResourcesConfig.REQTEMP + precessImg;
             return res;
         }
         return null;
 //        resultMap.put("precessImgValue", precessImg);
+    }
+
+    /**
+     * 磁盘空间统计
+     *
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("disk")
+    public Map<String, Object> disk() {
+        Map<String, Object> result = new HashMap<>();
+
+        List<DiskDTO> diskDTOS = FileUtils.getDiskInfo();
+        // 标识
+        List<String> legendData = new ArrayList<>();
+        legendData.add("已使用");
+        legendData.add("未使用");
+        // 盘符
+        List<String> yAxisData = new ArrayList<>();
+
+        List<List<Integer>> space = new ArrayList<>();
+        List<Integer> surplusSpace = new ArrayList<>(), usedSpace = new ArrayList<>();
+
+        diskDTOS.forEach((dto) -> {
+            yAxisData.add(dto.getDrive());
+
+            surplusSpace.add(Integer.parseInt(dto.getSurplusSpace()));
+            usedSpace.add(Integer.parseInt(dto.getUsedSpace()));
+        });
+
+        Collections.reverse(yAxisData);
+        Collections.reverse(usedSpace);
+        space.add(usedSpace);
+        Collections.reverse(surplusSpace);
+        space.add(surplusSpace);
+
+        // 数据
+        List<Map<String, Object>> series = new ArrayList<>();
+
+        for (int i = 0; i < legendData.size(); i++) {
+            Map<String, Object> seriesMap = new HashMap<>();
+            seriesMap.put("name", legendData.get(i));
+            seriesMap.put("stack", "space");
+            seriesMap.put("data", space.get(i));
+            series.add(seriesMap);
+        }
+
+        result.put("legendData", legendData);
+        result.put("yAxisData", yAxisData);
+        result.put("series", series);
+        return result;
     }
 }
