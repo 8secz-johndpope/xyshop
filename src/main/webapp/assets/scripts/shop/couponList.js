@@ -85,6 +85,8 @@ define(function(require) {
                         return '某类型商品';
                     case 'shop':
                         return '商铺';
+                    case 'good':
+                        return '某商品';
                 }
             }
         }, {
