@@ -3,7 +3,6 @@ package com.xy.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
 import com.google.gson.Gson;
-import com.sun.xml.internal.xsom.impl.scd.Iterators;
 import com.xy.models.Ad;
 import com.xy.models.AdRecord;
 import com.xy.pojo.ParamsPojo;
