@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 import java.math.BigDecimal;
+import java.util.List;
 
 public class Shop {
     @Id
@@ -161,6 +162,8 @@ public class Shop {
     private String moreImgShow;
     @Transient
     private String distance;
+    @Transient
+    private List<UnionGoods> goods;
 
     public String getThumbImgShow() {
         return thumbImgShow;
@@ -665,5 +668,14 @@ public class Shop {
 
     public void setActive(String active) {
         this.active = active;
+    }
+
+
+    public List<UnionGoods> getGoods() {
+        return goods;
+    }
+
+    public void setGoods(List<UnionGoods> goods) {
+        this.goods = goods;
     }
 }

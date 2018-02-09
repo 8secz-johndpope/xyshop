@@ -111,7 +111,7 @@ define(function (require) {
                         break;
                 }
                 opt.push('<a class="btn btn-outline btn-danger js-delete">删除</a>');
-                opt.push('<a href="goodsinfo.html?u=' + row.uuid + '" class="btn btn-outline btn-info J_menuItem">详情</a>');
+                //opt.push('<a href="goodsinfo.html?u=' + row.uuid + '" class="btn btn-outline btn-info J_menuItem">详情</a>');
                 return opt.join(" ");
             },
             events: {

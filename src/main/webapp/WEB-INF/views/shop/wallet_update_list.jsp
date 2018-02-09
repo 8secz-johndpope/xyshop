@@ -22,17 +22,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <body class="gray-bg">
             <input type="hidden" id="actioner" value="${adminUuid }">
             <input type="hidden" id="actionern" value="${adminName }">
-            <div class="row wrapper border-bottom white-bg page-heading">
-                <div class="col-sm-4">
-                    <h2>商家结算信息修改审核</h2>
-                </div>
-            </div>
             <div class="wrapper wrapper-content">
                 <div class="row">
                     <div class="col-sm-12">
-                        <div id="toolbar" class="btn-group">
-                            <label>修改申请审核列表</label>
-                        </div>
                         <table id="table"></table>
                     </div>
                 </div>

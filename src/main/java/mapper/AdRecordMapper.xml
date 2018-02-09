@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xy.mapper.AdRecordMapper">
+  <resultMap id="BaseResultMap" type="com.xy.models.AdRecord">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="ad_id" jdbcType="VARCHAR" property="adId" />
+    <result column="add_time" jdbcType="VARCHAR" property="addTime" />
+    <association column="ad_id" property="ad" javaType="com.xy.models.Ad" resultMap="AdResultMap"></association>
+  </resultMap>
+
+  <resultMap id="AdResultMap" type="com.xy.models.Ad">
+    <result column="name" jdbcType="VARCHAR" property="name" />
+  </resultMap>
+
+    <resultMap id="lastWeekHisMap" type="HashMap">
+        <result column="hits" property="hits" />
+        <result column="name" property="name" />
+    </resultMap>
+
+  <sql id="BaseColumns">
+    uuid, user_id, ad_id, add_time
+  </sql>
+
+  <select id="lastWeekHis" resultMap="lastWeekHisMap" parameterType="Integer">
+    SELECT
+    COUNT(record.uuid) as hits,
+    ad.name
+    FROM ad_record as record
+    INNER JOIN ad
+    ON record.ad_id = ad.uuid
+    WHERE date_sub(curdate(), INTERVAL #{day} DAY) &lt;= date(record.add_time)
+    GROUP BY record.ad_id
+    ORDER BY hits DESC
+    limit 0,7
+  </select>
+</mapper>

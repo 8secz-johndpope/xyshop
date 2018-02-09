@@ -16,7 +16,8 @@ public class MainTest {
         
 
 //        new SmsUtil().sendCode("17629213419");
-
+        System.out.println("2496           0  1   7    7     9    5  0     8".replace(" ", ""));
+        System.out.println("9012           7  0   5    0     0    7  0     8".replace(" ", ""));
     }
 
 }

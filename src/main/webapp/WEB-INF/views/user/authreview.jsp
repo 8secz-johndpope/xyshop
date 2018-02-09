@@ -26,16 +26,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <div id="toolbar" class="btn-group">
-                    <!-- <label style="padding-left: 10px;">用户身份:</label>
-                    <select class="form-control js-change-table-params" id="js-choise-role" style="width: 150px;display: inline-block;">
-                        <option value="" selected="selected">全部</option>
-                        <option value="bronze">铜牌用户</option>
-                        <option value="silver">银牌用户</option>
-                        <option value="gold">金牌用户</option>
-                    </select>
-                    <label>注册时间</label>
-                    <input class="form-control layer-date js-change-table-params" style="width: 150px;vertical-align: baseline;" id="js-date-begin" placeholder="开始时间">
-                    <input class="form-control layer-date js-change-table-params" style="width: 150px;vertical-align: baseline;" id="js-date-end" placeholder="结束时间"> -->
+                    
                 </div>
                 <table id="table"></table>
                 <input id="wx_domain" type="hidden" value="<%=Config.WX_DOMAIN%>" />

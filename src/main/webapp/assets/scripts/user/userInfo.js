@@ -8,88 +8,88 @@ define(function(require) {
         var table = require('tableUtils');
 
         /*用户表表*/
-        var usert = new table();
-        var columns = [{
-                field: 'headImg',
-                title: '用户头像',
-                align: 'center',
-                formatter: function(value, row, index) {
-                    if ($common._noEmpty(value)) {
-                        return "<img width='40px' id='headImg'  data-value='" + value + "' src='" + value + "'/>";
-                    }
-                    return "-";
-                }
-            }, {
-                field: 'name',
-                title: '用户名',
-                align: 'center',
-            }, {
-                field: 'realName',
-                title: '认证名',
-                align: 'center',
-            }, {
-                field: 'birthday',
-                title: '出生日期',
-                align: 'center',
-                visible: false,
-            }, {
-                field: 'gender',
-                title: '性别',
-                align: 'center',
-            }, {
-                field: 'phoneNum',
-                title: '手机号',
-                align: 'center',
-            }, {
-                field: 'score',
-                title: '当前积分',
-                align: 'center',
-            }, {
-                field: 'coin',
-                title: '当前金币',
-                align: 'center',
-            }, {
-                field: 'commission',
-                title: '佣金',
-                align: 'center',
-            }, {
-                field: 'role',
-                title: '当前角色',
-                align: 'center',
-                formatter: function(value, row, index) {
-                    switch (value) {
-                        case 'bronze':
-                            return "<span class='badge badge-warning'>铜牌会员</span>";
-                        case 'silver':
-                            return "<span class='badge badge-primary'>银牌会员</span>";
-                        case 'gold':
-                            return "<span class='badge badge-danger'>金牌会员</span>";
-                    }
-                    return "-";
-                }
-            },
-            //	        {
-            //	            field: 'alipayAccount', title: '绑定的提现支付宝账户',  align: 'center',
-            //	        },
-            {
-                field: 'refUserName',
-                title: '推荐人用户名',
-                align: 'center',
-            }, {
-                field: 'addTime',
-                title: '注册时间',
-                align: 'center',
-            }
-        ];
-        var $usert = usert._init("table", "/xyshop-supplier/user/details", columns, function(d) {
-            d.uuid = $('#js-user-uuid').val();
-        });
-        var next_usert = new table();
-        next_usert._setTool('#user-toolbar');
-        next_usert._setSort('addTime', 'desc');
-        var $next_usert = next_usert._init("user-table", "/shop-users/users/list", columns, function(d) {
-            d.refUserUuid = $('#js-user-uuid').val();
-        });
+        // var usert = new table();
+        // var columns = [{
+        //         field: 'headImg',
+        //         title: '用户头像',
+        //         align: 'center',
+        //         formatter: function(value, row, index) {
+        //             if ($common._noEmpty(value)) {
+        //                 return "<img width='40px' id='headImg'  data-value='" + value + "' src='" + value + "'/>";
+        //             }
+        //             return "-";
+        //         }
+        //     }, {
+        //         field: 'name',
+        //         title: '用户名',
+        //         align: 'center',
+        //     }, {
+        //         field: 'realName',
+        //         title: '认证名',
+        //         align: 'center',
+        //     }, {
+        //         field: 'birthday',
+        //         title: '出生日期',
+        //         align: 'center',
+        //         visible: false,
+        //     }, {
+        //         field: 'gender',
+        //         title: '性别',
+        //         align: 'center',
+        //     }, {
+        //         field: 'phoneNum',
+        //         title: '手机号',
+        //         align: 'center',
+        //     }, {
+        //         field: 'score',
+        //         title: '当前积分',
+        //         align: 'center',
+        //     }, {
+        //         field: 'coin',
+        //         title: '当前金币',
+        //         align: 'center',
+        //     }, {
+        //         field: 'commission',
+        //         title: '佣金',
+        //         align: 'center',
+        //     }, {
+        //         field: 'role',
+        //         title: '当前角色',
+        //         align: 'center',
+        //         formatter: function(value, row, index) {
+        //             switch (value) {
+        //                 case 'bronze':
+        //                     return "<span class='badge badge-warning'>铜牌会员</span>";
+        //                 case 'silver':
+        //                     return "<span class='badge badge-primary'>银牌会员</span>";
+        //                 case 'gold':
+        //                     return "<span class='badge badge-danger'>金牌会员</span>";
+        //             }
+        //             return "-";
+        //         }
+        //     },
+        //     //	        {
+        //     //	            field: 'alipayAccount', title: '绑定的提现支付宝账户',  align: 'center',
+        //     //	        },
+        //     {
+        //         field: 'refUserName',
+        //         title: '推荐人用户名',
+        //         align: 'center',
+        //     }, {
+        //         field: 'addTime',
+        //         title: '注册时间',
+        //         align: 'center',
+        //     }
+        // ];
+        // var $usert = usert._init("table", "/xyshop-supplier/user/details", columns, function(d) {
+        //     d.uuid = $('#js-user-uuid').val();
+        // });
+        // var next_usert = new table();
+        // next_usert._setTool('#user-toolbar');
+        // next_usert._setSort('addTime', 'desc');
+        // var $next_usert = next_usert._init("user-table", "/shop-users/users/list", columns, function(d) {
+        //     d.refUserUuid = $('#js-user-uuid').val();
+        // });
 
         /*商品订单表*/
         var ordert = new table();
@@ -221,33 +221,33 @@ define(function(require) {
 
 
         /*用户地址表*/
-        var addres = new table();
-        var a_columns = [{
-            field: 'linkName',
-            title: '收货人姓名',
-            align: 'center',
-        }, {
-            field: 'linkPhone',
-            title: '收货人手机号',
-            align: 'center',
-        }, {
-            field: 'addressCity',
-            title: '收货地址的省市区',
-            align: 'center',
-        }, {
-            field: 'addressDetail',
-            title: '详细地址',
-            align: 'center',
-        }, {
-            field: 'addTime',
-            title: '录入时间',
-            align: 'center',
-        }];
-        addres._setTool('#address-toolbar');
-        addres._setSort('addTime', 'desc');
-        var $addres = addres._init("addresstable", "/shop-users/useraddress/list", a_columns, function(d) {
-            d.userUuid = $('#js-user-uuid').val();
-        });
+        // var addres = new table();
+        // var a_columns = [{
+        //     field: 'linkName',
+        //     title: '收货人姓名',
+        //     align: 'center',
+        // }, {
+        //     field: 'linkPhone',
+        //     title: '收货人手机号',
+        //     align: 'center',
+        // }, {
+        //     field: 'addressCity',
+        //     title: '收货地址的省市区',
+        //     align: 'center',
+        // }, {
+        //     field: 'addressDetail',
+        //     title: '详细地址',
+        //     align: 'center',
+        // }, {
+        //     field: 'addTime',
+        //     title: '录入时间',
+        //     align: 'center',
+        // }];
+        // addres._setTool('#address-toolbar');
+        // addres._setSort('addTime', 'desc');
+        // var $addres = addres._init("addresstable", "/shop-users/useraddress/list", a_columns, function(d) {
+        //     d.userUuid = $('#js-user-uuid').val();
+        // });
 
         /*用户金币记录表*/
         var coin = new table();

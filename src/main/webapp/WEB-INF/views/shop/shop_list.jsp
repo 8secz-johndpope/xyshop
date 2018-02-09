@@ -46,6 +46,10 @@
             border-radius: 3px;
             outline: none;
         }
+
+        .amap-sug-result {
+                z-index: 2060!important;
+        }
     </style>
 </head>
 
@@ -104,11 +108,10 @@
                         <input class="form-control required js-init" id="js-add-ownerphone" placeholder="店长手机">
                     </div>
                     <div class="form-group" id="whole-scale">
-                        <label>统一结算比例</label>
+                        <label>结算比例</label>
                         <div style="display: block;">
-                            <input class="form-control required js-init" id="js-add-scale" placeholder="统一结算比例"
-                                   value="20" style="width: 96%; display: inline-block; margin-right: 1%">
-                            <span style="display: inline-block;">%</span>
+                            <input class="form-control required js-init" id="js-add-scale" placeholder="结算比例">
+                            <!-- <span style="display: inline-block;">%</span> -->
                         </div>
                     </div>
                     <div class="form-group" id="whole-scale">

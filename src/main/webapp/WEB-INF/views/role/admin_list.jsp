@@ -81,7 +81,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     <input class="form-control" placeholder="登录帐号" id="js-admin-phone-u">
                                 </div>
                                 <div class="form-group">
-                                    <label>选择账号帐号</label>
+                                    <label>选择账号角色</label>
                                     <select class="form-control js-role" style="width: 56%;display: inline-block;" id="js-admin-role-u">
 			</select>
                                 </div>

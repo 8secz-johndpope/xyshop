@@ -10,38 +10,10 @@ define(function(require) {
 		var adPageView = echarts.init(document.getElementById("adPageView"), "dark");
 		// 订单交易量
 		var orderPageView = echarts.init(document.getElementById("orderPageView"));
-		// 平台收支
-		var platformIncomeExpend = echarts.init(document.getElementById("platformIncomeExpend"));
 		// 新用户统计
 		var leaguer = echarts.init(document.getElementById("leaguer"));
 
 		var disk = echarts.init(document.getElementById("disk"));
-
-
-
-		let platformIncomeExpendOption = {
-			title: {
-				subtext: '测试'
-			},
-			tooltip: {},
-			legend: {
-				data: ['收入', '支出']
-			},
-			xAxis: {
-				data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
-			},
-			yAxis: {},
-			series: [{
-				name: '收入',
-				type: 'bar',
-				data: [5, 20, 36, 10, 10, 20]
-			}, {
-				name: '支出',
-				type: 'bar',
-				data: [15, 10, 50, 12, 18, 23]
-			}]
-		};
-
 
 
 		$(document).ready(function(e) {
@@ -173,10 +145,6 @@ define(function(require) {
 				};
 				disk.setOption(option);
 			});
-
-			// leaguer.setOption(leaguerOption);
-			// adPageView.setOption(adOption);
-			platformIncomeExpend.setOption(platformIncomeExpendOption);
 
 		});
 

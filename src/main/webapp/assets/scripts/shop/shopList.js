@@ -152,7 +152,7 @@ define(function (require) {
                 }
                 // opt.push('<a class="btn btn-outline btn-danger js-delete">删除</a>');
                 opt.push('<a class="btn btn-outline btn-success js-scale">结算比例</a>');
-                opt.push('<a href="shop/home.html?u=' + row.uuid + '" class="btn btn-outline btn-info J_menuItem">详情</a>');
+                // opt.push('<a href="shop/home.html?u=' + row.uuid + '" class="btn btn-outline btn-info J_menuItem">详情</a>');
                 return opt.join(" ");
             },
             events: {

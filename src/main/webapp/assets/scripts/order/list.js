@@ -61,12 +61,12 @@ define(function(require) {
                 switch (value) {
                     case 'coin':
                         return "<span class='badge badge-warning'>金币支付</span>";
-                    case 'weixin':
+                    case 'wxpay':
                         return "<span class='badge badge-primary'>微信支付</span>";
                     case 'alipay':
-                        return "<span class='badge badge-danger'>支付宝</span>";
+                        return "<span class='badge badge-success'>支付宝</span>";
                     case 'unionPay':
-                        return "<span class='badge badge-success'>银联支付</span>";
+                        return "<span class='badge badge-danger'>银联支付</span>";
                 }
                 return "-";
             }

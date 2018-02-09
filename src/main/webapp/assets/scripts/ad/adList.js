@@ -43,7 +43,7 @@ define(function (require) {
                         return '<span class="badge badge-info">商城首页</span>';
                     case "monitorHomeTop":
                         return '<span class="badge badge-success">监控首页</span>';
-                    case "monitorHomeTop":
+                    case "cateTop":
                         return '<span class="badge badge-warning">分类首页</span>';
                 }
                 return "-";
@@ -590,6 +590,7 @@ define(function (require) {
                 dataType: "json",
                 data: {
                     name: _name,
+                    shop: ''
                 },
                 async: true,
                 success: function (data) {

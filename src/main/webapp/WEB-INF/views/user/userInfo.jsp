@@ -23,12 +23,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
             <div class="wrapper wrapper-content">
                 <div class="row">
-                    <div class="col-sm-12">
+                    <!-- <div class="col-sm-12">
                         <div id="toolbar" class="btn-group">
                             <label>会员信息</label>
                         </div>
                         <table id="table"></table>
-                    </div>
+                    </div> -->
 
                     <%--<div class="col-sm-12">--%>
                         <%--<div id="user-toolbar" class="btn-group">--%>
@@ -45,7 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<option value="waitPay">待支付</option>
 								<option value="waitTake">待消费</option>
 								<option value="waitJudge">待评价</option>
-								<option value="judged">已评价</option>
+								<!-- <option value="judged">已评价</option> -->
 							</select>
                             <label style="padding-left: 10px;">支付方式:</label>
                             <select class="form-control js-change-table-params" id="js-choise-payway" style="width: 150px;display: inline-block;">
@@ -53,7 +53,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<option value="coin">金币支付</option>
 								<option value="weixin">微信支付</option>
 								<option value="alipay">支付宝</option>
-								<option value="unionPay">银联支付</option>
 							</select>
                         </div>
                         <table id="ordertable"></table>
@@ -84,18 +83,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <label style="padding-left: 10px;">消费方式:</label>
                             <select class="form-control" id="js-er-payway" style="width: 150px;display: inline-block;">
 								<option value="coin">金币支付</option>
-								<option value="weixin-wallet">钱包支付/微信支付</option>
+								<option value="wxpay">微信支付</option>
+                                <option value="alipay">支付宝支付</option>
 							</select>
                         </div>
                         <table id="exretable"></table>
                     </div>
 
-                    <div class="col-sm-12">
+                    <!-- <div class="col-sm-12">
                         <div id="address-toolbar" class="btn-group">
                             <label>会员地址列表</label>
                         </div>
                         <table id="addresstable"></table>
-                    </div>
+                    </div> -->
 
 
                 </div>
